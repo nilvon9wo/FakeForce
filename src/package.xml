@@ -4,12 +4,5 @@
         <members>*</members>
         <name>ApexClass</name>
     </types>
-    <types>
-        <members>Case</members>
-        <members>Product2</members>
-        <members>Vehicle__c</members>
-        <members>Work_Part__c</members>
-        <name>CustomObject</name>
-    </types>
     <version>38.0</version>
 </Package>
