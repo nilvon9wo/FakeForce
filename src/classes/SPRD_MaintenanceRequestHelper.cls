@@ -1,15 +1,15 @@
 public class MaintenanceRequestHelper extends fflib_SObjectDomain {
     List<Case> maintenanceRequestList;
-    HWR_MaintenanceRequests maintenanceRequests; 
+    SPRD_MaintenanceRequests maintenanceRequests; 
     
-    public MaintenanceRequestHelper(List<Case> maintenanceRequestList, HWR_MaintenanceRequests maintenanceRequests) {
+    public MaintenanceRequestHelper(List<Case> maintenanceRequestList, SPRD_MaintenanceRequests maintenanceRequests) {
         super(maintenanceRequestList);
         this.maintenanceRequestList = maintenanceRequestList;
         this.maintenanceRequests = maintenanceRequests;
     }
  
     public MaintenanceRequestHelper(List<Case> maintenanceRequestList) {
-        this(maintenanceRequestList, new HWR_MaintenanceRequests(maintenanceRequestList));
+        this(maintenanceRequestList, new SPRD_MaintenanceRequests(maintenanceRequestList));
     }
     
     public class Constructor implements fflib_SObjectDomain.IConstructable {

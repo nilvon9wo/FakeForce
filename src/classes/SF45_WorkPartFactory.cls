@@ -1,7 +1,7 @@
 @isTest 
 public class SF45_WorkPartFactory extends F45_SObjectFactory {
 	private static Map<String, Object> defaultByKeyMap = new Map<String, Object>{
-	}; 
+	};  
 	
 	public static List<Work_Part__c> createList(Work_Part__c template, Integer quantity, F45_DummyInsertMode insertMode){
 		MockStrategyInterface strategy = new SessionInQuantityStrategy(template, quantity); 

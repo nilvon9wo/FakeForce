@@ -56,7 +56,7 @@
         <deleteConstraint>SetNull</deleteConstraint>
         <externalId>false</externalId>
         <label>Equipment</label>
-        <referenceTo>Equipment__c</referenceTo>
+        <referenceTo>Product2</referenceTo>
         <relationshipLabel>Work Parts</relationshipLabel>
         <relationshipName>Work_Parts</relationshipName>
         <required>false</required>

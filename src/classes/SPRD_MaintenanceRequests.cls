@@ -1,20 +1,20 @@
-public virtual class HWR_MaintenanceRequests { 
+public virtual class SPRD_MaintenanceRequests { 
     @testVisible private List<Case> maintenanceRequestList;
-    private DB_GenericDml genericDml;
-    private DB_WorkPartSelector workPartSelector;
+    private SDAO_GenericDml genericDml;
+    private SDAO_WorkPartSelector workPartSelector;
  
-    public HWR_MaintenanceRequests(
+    public SPRD_MaintenanceRequests(
     		List<Case> maintenanceRequestList, 
-    		DB_GenericDml genericDml, 
-    		DB_WorkPartSelector workPartSelector
+    		SDAO_GenericDml genericDml, 
+    		SDAO_WorkPartSelector workPartSelector
     	) {
         this.maintenanceRequestList = maintenanceRequestList;
         this.genericDml = genericDml;
         this.workPartSelector = workPartSelector; 
     } 
 
-    public HWR_MaintenanceRequests(List<Case> maintenanceRequestList) {
-        this(maintenanceRequestList, new DB_GenericDml(), new DB_WorkPartSelector());
+    public SPRD_MaintenanceRequests(List<Case> maintenanceRequestList) {
+        this(maintenanceRequestList, new SDAO_GenericDml(), new SDAO_WorkPartSelector());
     } 
 
     public virtual void updateWorkOrders(Map<Id,SObject> oldMaintenanceRequestMap) {

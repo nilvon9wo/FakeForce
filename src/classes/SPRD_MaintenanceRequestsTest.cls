@@ -1,5 +1,5 @@
 @isTest
-private class HWR_MaintenanceRequestsTest {
+private class SPRD_MaintenanceRequestsTest {
 	private static final User TestRunner = TEST_RunAsUserFactory.create(); 
 	private static final Integer DAYS_TIL_NEXT_SERVICE_DUE = 35;
 	
@@ -13,8 +13,8 @@ private class HWR_MaintenanceRequestsTest {
 
 	static void testUpdateWorkOrdersShouldCreateNewRequestsForSpecifiedClosedRequests(String requestType){
 		// Arrange
-		DB_GenericDmlMock fakeGenericDml = new DB_GenericDmlMock();  
-		HWR_MaintenanceRequests targetClass = initializeMaintenanceRequests(requestType, fakeGenericDml);
+		SDAO_GenericDmlMock fakeGenericDml = new SDAO_GenericDmlMock();  
+		SPRD_MaintenanceRequests targetClass = initializeMaintenanceRequests(requestType, fakeGenericDml);
 
 		Case oldMaintenanceRequest = targetClass.maintenanceRequestList[0].clone(true, true, true, true);
 		oldMaintenanceRequest.status = 'New';
@@ -43,8 +43,8 @@ private class HWR_MaintenanceRequestsTest {
 	
 	@isTest static void testUpdateWorkOrdersShouldDoNothingForOpenUpdates(){
 		// Arrange
-		DB_GenericDmlMock fakeGenericDml = new DB_GenericDmlMock();  
-		HWR_MaintenanceRequests targetClass = initializeMaintenanceRequests('Routine Maintenance', fakeGenericDml);
+		SDAO_GenericDmlMock fakeGenericDml = new SDAO_GenericDmlMock();  
+		SPRD_MaintenanceRequests targetClass = initializeMaintenanceRequests('Routine Maintenance', fakeGenericDml);
 		targetClass.maintenanceRequestList[0].status = 'New';
 		
 		Case oldMaintenanceRequest = targetClass.maintenanceRequestList[0].clone(true, true, true, true);
@@ -66,8 +66,8 @@ private class HWR_MaintenanceRequestsTest {
 	
 	@isTest static void testUpdateWorkOrdersShouldDoNothingForOtherClosedRequests() {
 		// Arrange
-		DB_GenericDmlMock fakeGenericDml = new DB_GenericDmlMock();  
-		HWR_MaintenanceRequests targetClass = initializeMaintenanceRequests('Mechanical', fakeGenericDml);
+		SDAO_GenericDmlMock fakeGenericDml = new SDAO_GenericDmlMock();  
+		SPRD_MaintenanceRequests targetClass = initializeMaintenanceRequests('Mechanical', fakeGenericDml);
 		
 		Case oldMaintenanceRequest = targetClass.maintenanceRequestList[0].clone(true, true, true, true);
 		Map<Id,SObject> oldMaintenanceRequestMap = new Map<Id,SObject>{ oldMaintenanceRequest.id => oldMaintenanceRequest };
@@ -86,9 +86,9 @@ private class HWR_MaintenanceRequestsTest {
 		System.assertEquals(null, insertedSObjectList);
 	}
 	
-	private static HWR_MaintenanceRequests initializeMaintenanceRequests(
+	private static SPRD_MaintenanceRequests initializeMaintenanceRequests(
 			String requestType, 
-			DB_GenericDmlMock fakeGenericDml
+			SDAO_GenericDmlMock fakeGenericDml
 		) {
 		Case maintenanceRequestTemplate = new Case( 
 			status = 'Closed', 
@@ -99,16 +99,16 @@ private class HWR_MaintenanceRequestsTest {
 		Case newMaintenanceRequest = TEST_MaintenanceRequestFactory.create(maintenanceRequestTemplate, TEST_DummyInsertModeEnum.MOCK);		
 		List<Case> newMaintenanceRequestList = new List<Case>{newMaintenanceRequest};
 		
-		DB_WorkPartSelectorMock fakeWorkPartSelector = new DB_WorkPartSelectorMock(DAYS_TIL_NEXT_SERVICE_DUE);
-		return new HWR_MaintenanceRequests(newMaintenanceRequestList, fakeGenericDml, fakeWorkPartSelector);
+		SDAO_WorkPartSelectorMock fakeWorkPartSelector = new SDAO_WorkPartSelectorMock(DAYS_TIL_NEXT_SERVICE_DUE);
+		return new SPRD_MaintenanceRequests(newMaintenanceRequestList, fakeGenericDml, fakeWorkPartSelector);
 	}
 	
 	// --------------------------------------------------------------------------------------------------------------
 	
 	@isTest static void testSelectDueDateShouldUseLowestMaintenanceCycleToReturnDate() {
 		// Arrange
-		DB_GenericDmlMock fakeGenericDml = new DB_GenericDmlMock();  
-		HWR_MaintenanceRequests targetClass = initializeMaintenanceRequests('', fakeGenericDml);
+		SDAO_GenericDmlMock fakeGenericDml = new SDAO_GenericDmlMock();  
+		SPRD_MaintenanceRequests targetClass = initializeMaintenanceRequests('', fakeGenericDml);
 		
 		Case maintenanceRequest = targetClass.maintenanceRequestList[0].clone(true, true, true, true);
 		List<Product2> equipmentTemplateList = new List<Product2>{
@@ -136,8 +136,8 @@ private class HWR_MaintenanceRequestsTest {
 
 	@isTest static void testSelectDueDateShouldDefaultToYear4000() {
 		// Arrange
-		DB_GenericDmlMock fakeGenericDml = new DB_GenericDmlMock();  
-		HWR_MaintenanceRequests targetClass = initializeMaintenanceRequests('', fakeGenericDml);
+		SDAO_GenericDmlMock fakeGenericDml = new SDAO_GenericDmlMock();  
+		SPRD_MaintenanceRequests targetClass = initializeMaintenanceRequests('', fakeGenericDml);
 		
 		Case maintenanceRequest = targetClass.maintenanceRequestList[0].clone(true, true, true, true);
 		List<Work_Part__c> workPartList = new List<Work_Part__c>();  

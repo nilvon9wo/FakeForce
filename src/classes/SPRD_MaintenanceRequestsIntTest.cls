@@ -1,11 +1,11 @@
 @isTest
-private class HWR_MaintenanceRequestsIntTest {
+private class SPRD_MaintenanceRequestsIntTest {
 	private static final User TestRunner = TEST_RunAsUserFactory.create(); 
 	private static final Integer DAYS_TIL_NEXT_SERVICE_DUE = 35;
 	
 	@isTest static void testUpdateWorkOrdersShouldCreateNewRequestsForClosedRoutineMaintenance(){
 		// Arrange
-		HWR_MaintenanceRequests targetClass = initializeMaintenanceRequests('Routine Maintenance');
+		SPRD_MaintenanceRequests targetClass = initializeMaintenanceRequests('Routine Maintenance');
 
 		Case oldMaintenanceRequest = targetClass.maintenanceRequestList[0].clone(true, true, true, true);
 		Map<Id,SObject> oldMaintenanceRequestMap = new Map<Id,SObject>{ oldMaintenanceRequest.id => oldMaintenanceRequest };
@@ -35,7 +35,7 @@ private class HWR_MaintenanceRequestsIntTest {
 		System.assertEquals(Date.today().addDays((Integer) DAYS_TIL_NEXT_SERVICE_DUE), insertedCase.date_due__c);
 	}
 	
-	private static HWR_MaintenanceRequests initializeMaintenanceRequests(
+	private static SPRD_MaintenanceRequests initializeMaintenanceRequests(
 			String requestType 
 		) {
 		Case maintenanceRequestTemplate = new Case(
@@ -53,7 +53,7 @@ private class HWR_MaintenanceRequestsIntTest {
 		List<Case> closedMaintenanceRequestList = new List<Case>{closedMaintenanceRequest};
 		
 		initializeSelector(closedMaintenanceRequest.id);
-		return new HWR_MaintenanceRequests(closedMaintenanceRequestList);
+		return new SPRD_MaintenanceRequests(closedMaintenanceRequestList);
 	}
 	
 	private static void initializeSelector(Id maintenanceRequestId) {

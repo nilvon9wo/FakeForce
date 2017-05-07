@@ -1,8 +1,8 @@
-@isTest
+@isTest 
 public class SF45_ProductFactory extends F45_SObjectFactory {
 	private static Map<String, Object> defaultByKeyMap = new Map<String, Object>{
 		'replacement_part__c' => true
-	}; 
+	};  
 	
 	public static List<Product2> createList(Product2 template, Integer quantity, F45_DummyInsertMode insertMode){
 		MockStrategyInterface strategy = new EquipmentInQuantityStrategy(template, quantity); 

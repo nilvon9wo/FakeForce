@@ -1,5 +1,5 @@
 @isTest 
-public class DB_EquipmentDmlMock extends DB_EquipmentDml { 
+public class SDAO_ProductDmlMock extends SDAO_ProductDml { 
 	public List<Product2> updatedEquipmentList {private set; get;}
 	
 	public override Database.UpsertResult[] doUpsertUsingSkuAsExternalKey(List<Product2> updatedEquipmentList){

@@ -5,7 +5,7 @@ private class MaintenanceRequestHelperTest {
 	@isTest static void onAfterUpdateShouldUpdateWorkOrders(){
 		// Arrange
 		List<Case> maintenanceRequestList = new List<Case>();   
-		HWR_MaintenanceRequestsMock maintenanceRequestMock = new HWR_MaintenanceRequestsMock(maintenanceRequestList); 
+		SPRD_MaintenanceRequestsMock maintenanceRequestMock = new SPRD_MaintenanceRequestsMock(maintenanceRequestList); 
 		MaintenanceRequestHelper targetClass = new MaintenanceRequestHelper(maintenanceRequestList, maintenanceRequestMock);
 		Map<Id,SObject> existingMaintenanceRequestMap = null; 
 		

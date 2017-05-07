@@ -1,20 +1,20 @@
 @isTest  
-private class DB_EquipmentSelectorTest {
-	private static final User TestRunner = TEST_RunAsUserFactory.create(); 
+private class SF45_ProductSelectorIntTest {
+	private static final User TestRunner = F45_RunAsUserFactory.create(); 
 	
 	@isTest static void testSelectById() {
 		// Arrange
-		DB_EquipmentSelector targetClass = new DB_EquipmentSelector();
+		SDAO_ProductSelector targetClass = new SDAO_ProductSelector(); 
 
 		Product2 template = new Product2(maintenance_cycle__c = 1999);
-		Product2 testEquipment = TEST_EquipmentFactory.create(template, TEST_DummyInsertModeEnum.REAL);
+		Product2 testProduct = SF45_ProductFactory.create(template, F45_DummyInsertMode.REAL);
 		
 		// Act
 		List<Product2> resultList;
         System.runAs(TestRunner){
             Test.startTest();
             {
-                resultList = targetClass.selectById(new Set<Id>{ testEquipment.id });
+                resultList = targetClass.selectById(new Set<Id>{ testProduct.id });
             }
             Test.stopTest();
         }
