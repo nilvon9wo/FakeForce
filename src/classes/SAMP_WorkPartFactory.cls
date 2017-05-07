@@ -3,12 +3,12 @@ public class SAMP_WorkPartFactory extends F45_SObjectFactory {
 	private static Map<String, Object> defaultByKeyMap = new Map<String, Object>{
 	}; 
 	
-	public static List<Work_Part__c> createList(Work_Part__c template, Integer quantity, F45_DummyInsertModeEnum insertMode){
+	public static List<Work_Part__c> createList(Work_Part__c template, Integer quantity, F45_DummyInsertMode insertMode){
 		MockStrategyInterface strategy = new SessionInQuantityStrategy(template, quantity); 
 		return (List<Work_Part__c>) F45_SObjectFactory.createList(strategy, insertMode); 
 	}
 	
-	public static Work_Part__c create(Work_Part__c template, F45_DummyInsertModeEnum insertMode){
+	public static Work_Part__c create(Work_Part__c template, F45_DummyInsertMode insertMode){
 		Integer quantity = 1;
 		return createList(template, quantity, insertMode)[0];
 	}
@@ -20,7 +20,7 @@ public class SAMP_WorkPartFactory extends F45_SObjectFactory {
 	}
 	
 	public static List<Work_Part__c> createList(
-			Work_Part__c template, Integer quantity, List<Product2> equipmentList, F45_DummyInsertModeEnum insertMode
+			Work_Part__c template, Integer quantity, List<Product2> equipmentList, F45_DummyInsertMode insertMode
 		){
 		MockStrategyInterface strategy = new nWorkPartPerEquipmentStrategy(template, quantity, equipmentList); 
 		List<Work_Part__c> workPartList = (List<Work_Part__c>) F45_SObjectFactory.createList(strategy, insertMode);
@@ -31,7 +31,7 @@ public class SAMP_WorkPartFactory extends F45_SObjectFactory {
 		return workPartList;
 	}	  
 
-	public static List<Work_Part__c> createList(Work_Part__c template, List<Product2> equipmentList, F45_DummyInsertModeEnum insertMode){
+	public static List<Work_Part__c> createList(Work_Part__c template, List<Product2> equipmentList, F45_DummyInsertMode insertMode){
 		return createList(template, 1, equipmentList, insertMode); 
 	}
  
