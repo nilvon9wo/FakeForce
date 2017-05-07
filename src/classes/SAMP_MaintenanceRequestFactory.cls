@@ -1,5 +1,5 @@
 @isTest
-public class TEST_MaintenanceRequestFactory extends TEST_SObjectFactory { 
+public class SAMP_MaintenanceRequestFactory extends TEST_SObjectFactory { 
 	private static Map<String, Object> defaultByKeyMap = new Map<String, Object>{
 			'type' => 'Mechanical',
 			'status' => 'New',
