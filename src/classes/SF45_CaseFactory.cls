@@ -1,5 +1,5 @@
 @isTest
-public class SAMP_CaseFactory extends F45_SObjectFactory { 
+public class SF45_CaseFactory extends F45_SObjectFactory { 
 	private static Map<String, Object> defaultByKeyMap = new Map<String, Object>{
 			'type' => 'Mechanical',
 			'status' => 'New',
@@ -30,8 +30,8 @@ public class SAMP_CaseFactory extends F45_SObjectFactory {
 	public static Case createRealClosingCase(String requestType) {
 		Case CaseTemplate = new Case(
 			status = 'Closed',   
-			vehicle__c = SAMP_VehicleFactory.create(F45_DummyInsertMode.REAL).id, 
-			equipment__c = SAMP_ProductFactory.create(F45_DummyInsertMode.REAL).id, 
+			vehicle__c = SF45_VehicleFactory.create(F45_DummyInsertMode.REAL).id, 
+			equipment__c = SF45_ProductFactory.create(F45_DummyInsertMode.REAL).id, 
 			type = requestType
 		); 
 		Case newCase = create(CaseTemplate, F45_DummyInsertMode.REAL);

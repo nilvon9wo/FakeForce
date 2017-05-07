@@ -22,12 +22,20 @@ creating each instead of test data.
 F45_SObjectFactory creates a standardized way of manufacturing data, ensuring that your test data factories have consistent interfaces
 and you don't need to reimplement logic for transcribing data from your templates and deciding whether to insert.
 
+#### What is Dependency Injection and why is it important for testing? 
+Let me get back to you on that, but till then, you can read https://en.wikipedia.org/wiki/Dependency_injection
+
+#### What are Data Access Objects (DAO) and why are they important for unit testing?
+Let me get back to you on that, but till then, you can read https://en.wikipedia.org/wiki/Data_access_object
+
 #### Which files do I need if I want to use this in a real project?
 The only files you will need for a real project are the src/classes with the *F45_* prefix.
 
 #### What do the file prefixes mean:
 * F45 - FakeForce
-* SAMP - Sample
+* SAMP - Sample production code other than DAO
+* SDAO - Sample database access objects
+* SF45 - Sample test code which leverages FakeForce
 
 #### Why F45?
 Because I like bad puns.
@@ -39,3 +47,17 @@ Also -- just for you -- I've included some useful commentary in the otherwise cl
 ### About Testing:
 ### Do you have any solution for creating Behavior Driven Development tests in Salesforce.com 
 See https://github.com/nilvon9wo/zucchini
+
+## More information about 
+	* Test Pyramid, https://martinfowler.com/bliki/TestPyramid.html
+	
+	* Unit Testing, http://searchsoftwarequality.techtarget.com/definition/unit-testing
+	
+	* Integration Testing, https://msdn.microsoft.com/en-us/library/aa292128(v=vs.71).aspx
+	
+	* Acceptance Testing, https://www.agilealliance.org/glossary/acceptance/
+	
+	* Just Say No to More End-to-End Tests, https://testing.googleblog.com/2015/04/just-say-no-to-more-end-to-end-tests.html
+	
+	* Software Testing, https://en.wikipedia.org/wiki/Software_testing
+

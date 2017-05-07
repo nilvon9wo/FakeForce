@@ -1,5 +1,5 @@
 @isTest
-public class SAMP_ProductFactory extends F45_SObjectFactory {
+public class SF45_ProductFactory extends F45_SObjectFactory {
 	private static Map<String, Object> defaultByKeyMap = new Map<String, Object>{
 		'replacement_part__c' => true
 	}; 

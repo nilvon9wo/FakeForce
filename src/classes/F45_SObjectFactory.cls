@@ -51,7 +51,7 @@
  *  	3. (Not recommended) Refactor F45_SObjectFactory so such a field is no longer required.
  *	   		If you feel your modification is really worth sharing feel free to explain why and send a pull request.  
  * 
- *  Q: Why isn't the SAMP_WorkPartFactory class working as expected?
+ *  Q: Why isn't the SF45_WorkPartFactory class working as expected?
  *  
  *  A: This sample was created as an instance of an SObject without a text field.
  *     	It is also the only custom SObject referenced by the F45_* files.
@@ -67,7 +67,7 @@
  *  Q: Does F45_SObjectFactory need coverage?  If so, why?
  *
  *  A: Salesforce.com does not allow developers to annotate virtual classes with @isTest.
- * 		F45_SObjectFactory needs to be a virtual class so it can be extended by concrete data factories, such as SAMP_ProductFactory.
+ * 		F45_SObjectFactory needs to be a virtual class so it can be extended by concrete data factories, such as SF45_ProductFactory.
  *
  *		If you use all the strategies in F45_SObjectFactory, the class will be covered 100%.
  *		If you do not use all the strategies, you can safely delete those which you don't use. 
