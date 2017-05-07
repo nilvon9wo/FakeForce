@@ -4,5 +4,10 @@
         <members>*</members>
         <name>ApexClass</name>
     </types>
+    <types>
+        <members>*</members>
+        <members>Case</members>
+        <name>CustomObject</name>
+    </types>
     <version>38.0</version>
 </Package>

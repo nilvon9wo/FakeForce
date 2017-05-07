@@ -1,5 +1,5 @@
 @isTest
-public class SAMP_MaintenanceRequestFactory extends F45_SObjectFactory { 
+public class SAMP_CaseFactory extends F45_SObjectFactory { 
 	private static Map<String, Object> defaultByKeyMap = new Map<String, Object>{
 			'type' => 'Mechanical',
 			'status' => 'New',
@@ -14,7 +14,7 @@ public class SAMP_MaintenanceRequestFactory extends F45_SObjectFactory {
 	public static Case create(Case template, F45_DummyInsertMode insertMode){
 		Integer quantity = 1;
 		return createList(template, quantity, insertMode)[0];
-	}
+	} 
 
 	public static Case create(F45_DummyInsertMode insertMode){
 		Integer quantity = 1;
@@ -27,20 +27,20 @@ public class SAMP_MaintenanceRequestFactory extends F45_SObjectFactory {
 		}
 	}
 	
-	public static Case createRealClosingMaintenanceRequest(String requestType) {
-		Case maintenanceRequestTemplate = new Case(
-			status = 'Closed', 
-			vehicle__c = F45_VehicleFactory.create(F45_DummyInsertMode.REAL).id, 
-			equipment__c = F45_EquipmentFactory.create(F45_DummyInsertMode.REAL).id, 
+	public static Case createRealClosingCase(String requestType) {
+		Case CaseTemplate = new Case(
+			status = 'Closed',   
+			vehicle__c = SAMP_VehicleFactory.create(F45_DummyInsertMode.REAL).id, 
+			equipment__c = SAMP_ProductFactory.create(F45_DummyInsertMode.REAL).id, 
 			type = requestType
-		);
-		Case newMaintenanceRequest = create(maintenanceRequestTemplate, F45_DummyInsertMode.REAL);
-		Case closedMaintenanceRequest = [
+		); 
+		Case newCase = create(CaseTemplate, F45_DummyInsertMode.REAL);
+		Case closedCase = [
 			SELECT id, isClosed, vehicle__c, equipment__c, type
 			FROM Case
-			WHERE id = :newMaintenanceRequest.id
+			WHERE id = :newCase.id
 		];
-		return closedMaintenanceRequest; 		
+		return closedCase; 		 
 	}
 	
 }

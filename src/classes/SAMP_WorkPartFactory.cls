@@ -1,4 +1,4 @@
-@isTest
+@isTest 
 public class SAMP_WorkPartFactory extends F45_SObjectFactory {
 	private static Map<String, Object> defaultByKeyMap = new Map<String, Object>{
 	}; 
@@ -11,13 +11,13 @@ public class SAMP_WorkPartFactory extends F45_SObjectFactory {
 	public static Work_Part__c create(Work_Part__c template, F45_DummyInsertMode insertMode){
 		Integer quantity = 1;
 		return createList(template, quantity, insertMode)[0];
-	}
+	} 
 
 	class SessionInQuantityStrategy extends SObjectInQuantityStrategy {
 		SessionInQuantityStrategy(SObject template, Integer quantity) {
 			super(template, quantity, 'Work_Part__c ', defaultByKeyMap);
 		}
-	}
+	} 
 	
 	public static List<Work_Part__c> createList(
 			Work_Part__c template, Integer quantity, List<Product2> equipmentList, F45_DummyInsertMode insertMode
@@ -26,7 +26,7 @@ public class SAMP_WorkPartFactory extends F45_SObjectFactory {
 		List<Work_Part__c> workPartList = (List<Work_Part__c>) F45_SObjectFactory.createList(strategy, insertMode);
 		Integer i = 0;
 		for (Work_Part__c workPart : workPartList) {
-			workPart.equipment__r = equipmentList[i++];
+			workPart.equipment__r = equipmentList[i++]; 
 		} 
 		return workPartList;
 	}	  

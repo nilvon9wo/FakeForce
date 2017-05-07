@@ -1,5 +1,32 @@
 /**
  *  Anticipated Questions and anwsers
+ * 	Q: Why do I need factories to create my SObject test data?
+ *
+ * 	A: "Need" is a relative term.
+ * 		It is absolutely true that you can live without them.
+ *
+ * 		However, let's imagine you have 300 tests each creating their own data for Case.
+ *		The project has just been updated to meet a requirement where Case is now a required field.
+ * 		Now you have the fun task of manually updating each of those 300 tests.
+ * 		And by the time you finish, the clients had just decided "Oh yes, SLA Violation is required too".
+ *
+ * 		Now, rather than living and reliving variations of that nightmare, you can have a utility class which is responsible for
+ *		creating each instead of test data.
+ *
+ * 	Q: Why use the FakeForce SObject Factory (F45_SObjectFactory), instead of just creating my own factories?
+ *
+ * 	A: F45_SObjectFactory creates a standardized way of manufacturing data, ensuring that your test data factories have consistent interfaces
+ * 		and you don't need to reimplement logic for transcribing data from your templates and deciding whether to insert.
+ *
+ * 	Q: What is the point of the SObject templates which can be passed into your creation methods?
+ *		Why not create all the data within the factory?
+ *
+ *	A: If you are writing good test -- and I hope you are -- your test will need to control and make predictions about
+ *		What data will be in the object.  If the data were created within the factory, the factory would be less flexible and/or
+ *		your tests would be less readable.
+ *
+ *		So, instead, you create an SObject with the values you care about (for example, an Account's name) and the factory will take
+ *		of filling in required fields and (if necessary) provide an SFID (either real or fake).
  *
  *  Q: How can I use the F45_SObjectFactory to fake data for SObjects without a name fields? 
  *     	(And why is this a problem anyway?)
