@@ -5,6 +5,104 @@ Includes some sample documentation and sample metadata to illustrate use.
 
 ## Anticipated Questions:
 
+### How do I create tests with this?
+Check out the samples in the sample folder.
+
+### What do the class prefixes mean:
+* F45 - FakeForce
+* SPRD - Sample production code other than DAO
+* SDAO - Sample database access objects
+* SF45 - Code which leverages FakeForce (i.e., the tests, the mocks, and the fake data factories)
+
+### Why do some test class files have the suffix "IntTest" instead of just "Test"?
+This is a convention to indicate these are integration tests (i.e., they touch the database).
+It can be useful to know this because they will take longer to execute.
+When possible, prefer unit tests, but you will need integration tests against your Data Access Objects (DAO)
+
+### What are Data Access Objects (DAO) and why are they important for unit testing?
+You should structure your code to isolate database access so it can be mocked out.
+If you can not mock out the database access, you are forced to write integration tests.
+In addition to taking longer to run, these are harder to create, debug, and maintain.
+
+For more information see, you can read https://en.wikipedia.org/wiki/Data_access_object
+
+### How do I mock thing out?
+To mock things out, you need to either have a common interface (the ApexMocks approach)
+or you must extend the dependency (my approach).
+
+Because Apex classes are final by default, you must use the "virtual" keyword when you wish to extend them.
+This is annoying, but has no unpleasant side effects.
+
+(I have no idea why SFDC made the classes final by default... but then I question a lot of their decisions.)
+
+### what is Dependency Injection and why is it important for testing?
+When one class depends upon another class, that is a dependency.
+Dependencies can be either hardcoded into the class or injected, they can also be implicit or explict.
+
+For example, if I write
+```
+class Foo {
+	public static void makeGreeting(String name) {
+		System.debug(LoggingLevel.INFO, 'Hello, ' + name);
+		insert (new Account (name = name));
+	}
+}
+
+// Execute with
+Foo.makeGreeting('John Smith');
+```
+
+You have a very simple method, but:
+1. You can't test the logging (SFDC has no tools for that).
+2. You need to access the database twice (once to insert the account, once to verify the insertion).
+
+With a little additional complexity, I can write this in a more testable way:
+
+```
+class Foo {
+	// Contructor and dependencies
+	GenericDml genericDml;
+	Logger logger;
+
+	public Foo(GenericDml genericDml, Logger logger) {
+		this.genericDml = genericDml; 
+		this.logger = logger;
+	}
+	
+	public Foo() {
+		this(new GenericDml(), new Logger());
+	}
+
+	public Account makeGreeting(String name) {
+		logger.info('Hello, ' + name);
+		genericDml.doInsert(new Account (name = name));
+	}
+}
+
+// Execute with
+Foo foo = new Foo(); 
+foo.makeGreeting('John Smith');
+```
+
+Assuming GenericDml and Logger exist and have the appropriate methods, this will do the same thing.
+But now, when you want to test it, you can create mocks (if the dependencies are virtual).
+You can use your mocks to intercept and spy on the data.  
+You don't even need to bother writing to the database or the log if you don't want to,
+which means your tests can perform much faster.
+
+It also allow you not to worry about the inputs and outputs for complex functionality which goes beyond
+what you are hoping to verify in any particular test.
+This means your tests are easier to create, debug, and maintain.
+
+Depencency injection can be used for much more than just testing, 
+but that goes beyond the scope of the present work.
+
+In the sample folder you'll find multiple examples of dependency injection and be able to compare
+unit tests with integration tests.
+ 
+For more information about Dependency Injection, you can read https://en.wikipedia.org/wiki/Dependency_injection
+
+
 ### Why do I need factories to create my SObject test data?
 "Need" is a relative term.
 It is absolutely true that you can live without them.
@@ -21,29 +119,16 @@ creating each instead of test data.
 F45_SObjectFactory creates a standardized way of manufacturing data, ensuring that your test data factories have consistent interfaces
 and you don't need to reimplement logic for transcribing data from your templates and deciding whether to insert.
 
-### What is Dependency Injection and why is it important for testing? 
-Let me get back to you on that, but till then, you can read https://en.wikipedia.org/wiki/Dependency_injection
 
-### What are Data Access Objects (DAO) and why are they important for unit testing?
-Let me get back to you on that, but till then, you can read https://en.wikipedia.org/wiki/Data_access_object
 
 ### How should I deal with Http and WebService Callouts?
 To begin with, I recommend wrapping the callouts to a service which you inject, so you can then simply mock it out like DAO or anything else.
 But you'll want to create integration tests for the callout service.
 For that, I have no special techniques.  SFDC's native functionality serves well enough.
 
-### Why do some class files have the suffix IntTest instead of just Test?
-This is a convention to indicate these are integration tests (i.e., they touch the database).
-It can be useful to know this because they will take longer to execute.
 
 ### Which files do I need if I want to use this in a real project?
 The only files you will need for a real project are the src/classes with the *F45_* prefix.
-
-### What do the class prefixes mean:
-* F45 - FakeForce
-* SPRD - Sample production code other than DAO
-* SDAO - Sample database access objects
-* SF45 - Code which leverages FakeForce (i.e., the tests, the mocks, and the fake data factories)
 
 ### On a real project, would you use the above prefix strategy to divide your code this way?
 Not exactly.  The above division is intended to make it easier to see where and how the FakeForce library is being used.
