@@ -64,6 +64,19 @@
         <trackTrending>false</trackTrending>
         <type>Lookup</type>
     </fields>
+    <fields>
+        <fullName>Maintenance_Request__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Maintenance Request</label>
+        <referenceTo>Case</referenceTo>
+        <relationshipLabel>Work Parts</relationshipLabel>
+        <relationshipName>Work_Parts</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
     <label>Work Part</label>
     <listViews>
         <fullName>All</fullName>

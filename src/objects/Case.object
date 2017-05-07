@@ -111,6 +111,26 @@
         <trackTrending>false</trackTrending>
     </fields>
     <fields>
+        <fullName>Date_Due__c</fullName>
+        <externalId>false</externalId>
+        <label>Date Due</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Date_Reported__c</fullName>
+        <externalId>false</externalId>
+        <label>Date Reported</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
         <fullName>Description</fullName>
         <trackFeedHistory>false</trackFeedHistory>
         <trackHistory>true</trackHistory>

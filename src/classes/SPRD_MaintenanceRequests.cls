@@ -1,4 +1,4 @@
-public virtual class SPRD_MaintenanceRequests { 
+public virtual class SPRD_MaintenanceRequests {  
     @testVisible private List<Case> maintenanceRequestList;
     private SDAO_GenericDml genericDml;
     private SDAO_WorkPartSelector workPartSelector;
@@ -50,15 +50,17 @@ public virtual class SPRD_MaintenanceRequests {
     @testVisible
     private Date selectDueDate(Case maintenanceRequest, List<Work_Part__c> workPartList) {
     	Decimal daysTilMaintenance = 2147483647;
-    	for (Work_Part__c workPart : workPartList) {
-    		if (
-    			workPart.maintenance_request__c == maintenanceRequest.id
-    			&& workPart.equipment__c != null
-    			&& workPart.equipment__r.maintenance_cycle__c != null
-    			&& daysTilMaintenance > workPart.equipment__r.maintenance_cycle__c
-    		) {
-    			daysTilMaintenance = workPart.equipment__r.maintenance_cycle__c; 
-    		}
+    	if (workPartList != null) {
+	    	for (Work_Part__c workPart : workPartList) {
+	    		if (
+	    			workPart.maintenance_request__c == maintenanceRequest.id
+	    			&& workPart.equipment__c != null
+	    			&& workPart.equipment__r.maintenance_cycle__c != null
+	    			&& daysTilMaintenance > workPart.equipment__r.maintenance_cycle__c
+	    		) {
+	    			daysTilMaintenance = workPart.equipment__r.maintenance_cycle__c; 
+	    		}
+	    	}
     	}
     	
     	Date returnDate = Date.today().addDays((Integer) daysTilMaintenance);

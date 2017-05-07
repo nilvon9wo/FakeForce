@@ -1,18 +1,9 @@
 public class SDAO_ProductSelector {
-
-    public List<Schema.SObjectField> getSObjectFieldList() {
-        return new List<Schema.SObjectField>{
-                Product2.id,
-                Product2.maintenance_cycle__c
-        }; 
-    }
-
-    public Schema.SObjectType getSObjectType() {
-        return Product2.sObjectType;
-    }
-    
     public List<Product2> selectById(Set<Id> idSet) {
-    	// TODO:
-    	return null;
+    	return [
+    		SELECT id, maintenance_cycle__c 
+    		FROM Product2
+    		WHERE id IN :idSet
+    	]; 
     }
 }

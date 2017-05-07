@@ -27,6 +27,11 @@ Let me get back to you on that, but till then, you can read https://en.wikipedia
 ### What are Data Access Objects (DAO) and why are they important for unit testing?
 Let me get back to you on that, but till then, you can read https://en.wikipedia.org/wiki/Data_access_object
 
+### How should I deal with Http and WebService Callouts?
+To begin with, I recommend wrapping the callouts to a service which you inject, so you can then simply mock it out like DAO or anything else.
+But you'll want to create integration tests for the callout service.
+For that, I have no special techniques.  SFDC's native functionality serves well enough.
+
 ### Why do some class files have the suffix IntTest instead of just Test?
 This is a convention to indicate these are integration tests (i.e., they touch the database).
 It can be useful to know this because they will take longer to execute.
@@ -38,10 +43,46 @@ The only files you will need for a real project are the src/classes with the *F4
 * F45 - FakeForce
 * SPRD - Sample production code other than DAO
 * SDAO - Sample database access objects
-* SF45 - Sample test code which leverages FakeForce
+* SF45 - Code which leverages FakeForce (i.e., the tests, the mocks, and the fake data factories)
+
+### On a real project, would you use the above prefix strategy to divide your code this way?
+Not exactly.  The above division is intended to make it easier to see where and how the FakeForce library is being used.
+
+On a real project (unless the project has requirements to the contrary), 
+I would keep code together according to feature, with the following exceptions:
+
+* DB - for all database access objects
+* TRG - for all trigger handlers
+
+I make these exceptions because I'd prefer for all the code, regardless of origin or purpose 
+to use common trigger handlers and database object access handlers to avoid race conditions and ensure
+when data is passed between classes, it carries all the required properties.
+
+I however, seek to standardize suffixs, such that given a feature, object, or sObject foo, the following classnames might be used:
+
+* DB_FooSelector
+* DB_FooSelectorIntTest			- Integration tests of FooSelector
+* DB_FooSelectorTest			- Unit tests of FooSelector
+* DB_FooSelectorMock    		- Extends FooSelector, allowing it to injected in place of FooSelector for testing other classes 
+* DB_FooDml
+* DB_FooDmlIntTest				- Integration tests of FooSelector
+* DB_FooDmlTest					- Unit tests of FooSelector
+* DB_FooDmlMock    				- Extends FooSelector, allowing it to injected in place of FooSelector for testing other classes 
+* TRG_FooTriggerHandler
+* TRG_FooTriggerHandlerTest		- Unit tests of FooTriggerHandler
+* TRG_FooTriggerHandlerIntTest	- Integration tests of FooTriggerHandler
+* TRG_FooTriggerHandlerMock		- Extends FooTriggerHandler, allowing it to injected in place of FooTriggerHandler for testing other classes 
+
+For brevity, I won't continue to list Test, IntTest, and Mock below, and assuming PRJ_ is the prefix assigned to the project:
+
+* PRJ_FooService 
+* PRJ_FooAuraCtrl	- For controlling Foo Aura/Lightning, (but SFDC calls everything Lightning making it meaningless).
+* PRJ_FooVFPageCtrl	- For controlling Foo VisualForce page
+* PRJ_FooVFCmpCtrl	- For controlling Foo VisualForce component
+* PRJ_FooRestCtrl	- For providing RESTful services of Foo 
 
 ### Why F45?
-Because I like bad puns.
+Because I like bad puns.  (I'll let you think about that for awhile.)
 
 ### Why isn't all the sample code completely functional?
 The point of the sample code isn't to provide complete functionality, but to demonstrate how things can be done.
@@ -76,6 +117,10 @@ See https://github.com/nilvon9wo/zucchini
 	* Just Say No to More End-to-End Tests, https://testing.googleblog.com/2015/04/just-say-no-to-more-end-to-end-tests.html
 	* Software Testing, https://en.wikipedia.org/wiki/Software_testing
 
+### Salesforce.com Native Mock Callouts
+	* Test Web Service Callouts, https://developer.salesforce.com/docs/atlas.en-us.apexcode.meta/apexcode/apex_callouts_wsdl2apex_testing.htm 
+	* Testing HTTP Callouts by Implementing the HttpCalloutMock Interface, https://developer.salesforce.com/docs/atlas.en-us.apexcode.meta/apexcode/apex_classes_restful_http_testing_httpcalloutmock.htm
+		
 ### FinancialForce
 	* FinancialForce Apex Mocks, https://github.com/financialforcedev/fflib-apex-mocks
 	* FinancialForce Apex Common, https://github.com/financialforcedev/fflib-apex-common

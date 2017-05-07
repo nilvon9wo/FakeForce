@@ -20,6 +20,7 @@ private class SF45_ProductSelectorIntTest {
         }
 
 		// Assert
+		System.assert(resultList != null);
 		System.assertEquals(1, resultList.size());
 		System.assertEquals(template.maintenance_cycle__c, resultList[0].maintenance_cycle__c);
 	}

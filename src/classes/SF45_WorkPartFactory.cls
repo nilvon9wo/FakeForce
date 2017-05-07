@@ -25,9 +25,11 @@ public class SF45_WorkPartFactory extends F45_SObjectFactory {
 		MockStrategyInterface strategy = new nWorkPartPerEquipmentStrategy(template, quantity, equipmentList); 
 		List<Work_Part__c> workPartList = (List<Work_Part__c>) F45_SObjectFactory.createList(strategy, insertMode);
 		Integer i = 0;
-		for (Work_Part__c workPart : workPartList) {
-			workPart.equipment__r = equipmentList[i++]; 
-		} 
+		if (workPartList != null) {
+			for (Work_Part__c workPart : workPartList) {
+				workPart.equipment__r = equipmentList[i++]; 
+			} 
+		}
 		return workPartList;
 	}	  
 
@@ -40,5 +42,4 @@ public class SF45_WorkPartFactory extends F45_SObjectFactory {
 			super(template, quantity, 'Work_Part__c ', 'equipment__c', equipmentList, defaultByKeyMap);
 		} 
 	}
-	
 }

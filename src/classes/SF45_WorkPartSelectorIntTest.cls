@@ -25,6 +25,7 @@ private class SF45_WorkPartSelectorIntTest {
         }
 
 		// Assert
+		System.assert(resultList != null);
 		System.assertEquals(1, resultList.size());
 		
 		Work_Part__c resultMaintenanceRequest = resultList[0];
