@@ -190,7 +190,19 @@ And please let me know if you find any interesting ways to combine these two pro
 Read the source code.
 Also -- just for you -- I've included some useful commentary in the otherwise clean source code.
 
-### Do you have any solution for creating Behavior Driven Development tests in Salesforce.com 
+### Can you suggest any solution for unit testing Lightning components?
+Rumour has it that Aura has a baked in solution which should be exposed by SalesForce soon.
+
+Till then:
+1. Keir Bowden created an interesting Jasmin based solution.  I forked it and made some minor enhancements for clarity.
+(The pull request was declined to keep the repo in sync with a Deadforce presentation).  You'll find my fork at:
+https://github.com/nilvon9wo/LtgJasmineUnitTesting
+
+2. Yury Sannikov offers a Mocha based solution.  I haven't had a chance to play with this yet, but it looks cleaner as the JavaScript can be tested without relying on Lightning infrastucture (though it requires additional setup on the developer machine):
+https://github.com/yury-sannikov/mocha-aura
+
+
+### Can you suggest any solution for creating Behavior Driven Development tests in Salesforce.com 
 See https://github.com/nilvon9wo/zucchini
 
 ## Further Resources 
