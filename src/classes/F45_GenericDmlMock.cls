@@ -7,24 +7,24 @@
 public class F45_GenericDmlMock extends F45_GenericDml {
 	// These need to be lists in case there are multiple DML operations during your test.
 	// Otherwise, only the last operation would be verifiable.
-	public List<List<SObject>> insertedSObjectList = new List<List<SObject>>();
+	public List<List<SObject>> insertedSObjectListList = new List<List<SObject>>();
 	public List<Boolean> insertWasAllOrNoneList = new List<Boolean>();
 
-	public List<List<SObject>> updatedSObjectList = new List<List<SObject>>();
+	public List<List<SObject>> updatedSObjectListList = new List<List<SObject>>();
 	public List<Boolean> updateWasAllOrNoneList = new List<Boolean>();
 
-	public List<List<SObject>> upsertedSObjectList = new List<List<SObject>>();
+	public List<List<SObject>> upsertedSObjectListList = new List<List<SObject>>();
 	public List<Boolean> upsertWasAllOrNoneList = new List<Boolean>();
 
-	public List<List<SObject>> deletedSObjectList = new List<List<SObject>>();
+	public List<List<SObject>> deletedSObjectListList = new List<List<SObject>>();
 	public List<Boolean> deleteWasAllOrNoneList = new List<Boolean>();
 
-	public List<List<SObject>> undeletedSObjectList = new List<List<SObject>>();
+	public List<List<SObject>> undeletedSObjectListList = new List<List<SObject>>();
 	public List<Boolean> undeleteWasAllOrNoneList = new List<Boolean>();
 	
     public override List<Database.SaveResult> doInsert(List<SObject> objectList, Boolean isAllOrNone) {
     	if (objectList != null && !objectList.isEmpty()) {
-    		this.insertedSObjectList.add(objectList);
+    		this.insertedSObjectListList.add(objectList);
     	}
    		this.insertWasAllOrNoneList.add(isAllOrNone);
    		
@@ -34,7 +34,7 @@ public class F45_GenericDmlMock extends F45_GenericDml {
 
     public override List<Database.SaveResult> doUpdate(List<SObject> objectList, Boolean isAllOrNone) {
     	if (objectList != null && !objectList.isEmpty()) {
-    		this.updatedSObjectList.add(objectList);
+    		this.updatedSObjectListList.add(objectList);
     	}
    		this.updateWasAllOrNoneList.add(isAllOrNone);
    		
@@ -44,7 +44,7 @@ public class F45_GenericDmlMock extends F45_GenericDml {
     
     public override List<Database.UpsertResult> doUpsert(List<SObject> objectList, Boolean isAllOrNone) {
     	if (objectList != null && !objectList.isEmpty()) {
-    		this.upsertedSObjectList.add(objectList);
+    		this.upsertedSObjectListList.add(objectList);
     	}
    		this.upsertWasAllOrNoneList.add(isAllOrNone);
    		
@@ -54,7 +54,7 @@ public class F45_GenericDmlMock extends F45_GenericDml {
     
     public override List<Database.DeleteResult> doDelete(List<SObject> objectList, Boolean isAllOrNone) {
     	if (objectList != null && !objectList.isEmpty()) {
-    		this.deletedSObjectList.add(objectList);
+    		this.deletedSObjectListList.add(objectList);
     	}
    		this.deleteWasAllOrNoneList.add(isAllOrNone);
    		
@@ -64,7 +64,7 @@ public class F45_GenericDmlMock extends F45_GenericDml {
     
     public override List<Database.UndeleteResult> doUndelete(List<SObject> objectList, Boolean isAllOrNone) {
     	if (objectList != null && !objectList.isEmpty()) {
-    		this.undeletedSObjectList.add(objectList);
+    		this.undeletedSObjectListList.add(objectList);
     	}
    		this.undeleteWasAllOrNoneList.add(isAllOrNone);
    		
