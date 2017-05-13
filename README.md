@@ -10,7 +10,7 @@ Check out the samples in the sample folder.
 
 ### Can you recommend some testing standards?
 
-*A test which does not fail is NOT a test*
+*A test which cannot not fail is NOT a test*
 
 	* Automated tests should include:
 		* Unit tests 
