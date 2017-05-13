@@ -3,6 +3,13 @@ A library of utility classes for creating Apex unit and integration tests.
 
 Includes some sample documentation and sample metadata to illustrate use.
 
+## Anticipated Questions:
+
+### How do I create tests with this?
+Check out the samples in the sample folder.
+
+### Can you recommend some testing standards?
+
 *A test which does not fail is NOT a test*
 
 	* Automated tests should include:
@@ -33,12 +40,6 @@ Includes some sample documentation and sample metadata to illustrate use.
 			- Code which bloats coverage metrics without providing value against regression 
 				is fraudulent and -- for providing false security -- worse than useless.
 
-
-
-## Anticipated Questions:
-
-### How do I create tests with this?
-Check out the samples in the sample folder.
 
 ### What do the class prefixes mean:
 * F45 - FakeForce
