@@ -3,6 +3,38 @@ A library of utility classes for creating Apex unit and integration tests.
 
 Includes some sample documentation and sample metadata to illustrate use.
 
+*A test which does not fail is NOT a test*
+
+	* Automated tests should include:
+		* Unit tests 
+			- Tests to prove specific classes and methods function as expected.
+			- If the code is clean code, these are the easiest to write.
+			- These are the fastest to execute.
+			- These are the most useful for regression and debugging.
+			- These should be the majority of your tests.
+			- Coverage should exceed at least 80% (yes, this exceeds SFDC requirements).
+			- Coverage should include all "happy paths" and other significant branches.
+		* Integration Tests 
+			- Tests to prove that multiple units can work together
+			- Tests to prove units work with user interfaces
+			- Tests to prove units work with the intended database and external servers.
+			- These must be included whenever the database or external systems is required.
+			- Coverage should include all "happy paths" and other significant branches.
+		* End-to-End Tests 
+			- Tests to prove the situations presented by User Stories.
+			- These take the longest to execute and are the hardest to debug.
+			- Prefer unit or integration tests to prove as much functionality as possible.
+			- Coverage should include "happy paths" specifically given in User Stories.
+			- Coverage should also prevent regression to any critical defects.
+	* Coverage is a metric for understanding code quality.
+		* Coverage is the byproduct of composing quality tests. 
+			- Achieving coverage should not be the goal of writing tests.
+			- It is only valuable to the extent developers understand what has been measured.
+			- Code which bloats coverage metrics without providing value against regression 
+				is fraudulent and -- for providing false security -- worse than useless.
+
+
+
 ## Anticipated Questions:
 
 ### How do I create tests with this?
