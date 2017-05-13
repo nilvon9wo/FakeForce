@@ -13,8 +13,8 @@ private class SF45_MaintenanceRequestsTest {
 
 	static void testUpdateWorkOrdersShouldCreateNewRequestsForSpecifiedClosedRequests(String requestType){
 		// Arrange
-		SDAO_GenericDmlMock fakeGenericDml = new SDAO_GenericDmlMock();  
-		SPRD_MaintenanceRequests targetClass = initializeMaintenanceRequests(requestType, fakeGenericDml);
+		F45_GenericDmlMock fakeGenericDml = new F45_GenericDmlMock();  
+		SPRD_MaintenanceRequests targetClass = initializeMaintenanceRequests(requestType, fakeGenericDml); 
 
 		Case oldMaintenanceRequest = targetClass.maintenanceRequestList[0].clone(true, true, true, true);
 		oldMaintenanceRequest.status = 'New';
@@ -30,7 +30,7 @@ private class SF45_MaintenanceRequestsTest {
         } 
 
 		// Assert
-		List<SObject> insertedSObjectList = fakeGenericDml.insertedSObjectList;
+		List<SObject> insertedSObjectList = fakeGenericDml.insertedSObjectListList[0]; 
 		System.assertEquals(1, insertedSObjectList.size());
 		Case insertedCase = (Case)insertedSObjectList[0];
 		System.assertEquals(oldMaintenanceRequest.vehicle__c, insertedCase.vehicle__c);
@@ -43,7 +43,7 @@ private class SF45_MaintenanceRequestsTest {
 	
 	@isTest static void testUpdateWorkOrdersShouldDoNothingForOpenUpdates(){
 		// Arrange
-		SDAO_GenericDmlMock fakeGenericDml = new SDAO_GenericDmlMock();  
+		F45_GenericDmlMock fakeGenericDml = new F45_GenericDmlMock();  
 		SPRD_MaintenanceRequests targetClass = initializeMaintenanceRequests('Routine Maintenance', fakeGenericDml);
 		targetClass.maintenanceRequestList[0].status = 'New';
 		
@@ -60,13 +60,12 @@ private class SF45_MaintenanceRequestsTest {
         } 
 
 		// Assert
-		List<SObject> insertedSObjectList = fakeGenericDml.insertedSObjectList;
-		System.assertEquals(null, insertedSObjectList); 
+		System.assert(fakeGenericDml.insertedSObjectListList.isEmpty()); 
 	}
 	
 	@isTest static void testUpdateWorkOrdersShouldDoNothingForOtherClosedRequests() {
 		// Arrange
-		SDAO_GenericDmlMock fakeGenericDml = new SDAO_GenericDmlMock();  
+		F45_GenericDmlMock fakeGenericDml = new F45_GenericDmlMock();  
 		SPRD_MaintenanceRequests targetClass = initializeMaintenanceRequests('Mechanical', fakeGenericDml);
 		
 		Case oldMaintenanceRequest = targetClass.maintenanceRequestList[0].clone(true, true, true, true);
@@ -82,13 +81,12 @@ private class SF45_MaintenanceRequestsTest {
         }
 
 		// Assert
-		List<SObject> insertedSObjectList = fakeGenericDml.insertedSObjectList;
-		System.assertEquals(null, insertedSObjectList);
+		System.assert(fakeGenericDml.insertedSObjectListList.isEmpty()); 
 	}
 	
 	private static SPRD_MaintenanceRequests initializeMaintenanceRequests(
 			String requestType, 
-			SDAO_GenericDmlMock fakeGenericDml
+			F45_GenericDmlMock fakeGenericDml
 		) {
 		Case maintenanceRequestTemplate = new Case( 
 			status = 'Closed', 
@@ -107,7 +105,7 @@ private class SF45_MaintenanceRequestsTest {
 	
 	@isTest static void testSelectDueDateShouldUseLowestMaintenanceCycleToReturnDate() {
 		// Arrange
-		SDAO_GenericDmlMock fakeGenericDml = new SDAO_GenericDmlMock();  
+		F45_GenericDmlMock fakeGenericDml = new F45_GenericDmlMock();  
 		SPRD_MaintenanceRequests targetClass = initializeMaintenanceRequests('', fakeGenericDml);
 		
 		Case maintenanceRequest = targetClass.maintenanceRequestList[0].clone(true, true, true, true);
@@ -136,7 +134,7 @@ private class SF45_MaintenanceRequestsTest {
 
 	@isTest static void testSelectDueDateShouldDefaultToYear4000() {
 		// Arrange
-		SDAO_GenericDmlMock fakeGenericDml = new SDAO_GenericDmlMock();  
+		F45_GenericDmlMock fakeGenericDml = new F45_GenericDmlMock();  
 		SPRD_MaintenanceRequests targetClass = initializeMaintenanceRequests('', fakeGenericDml);
 		
 		Case maintenanceRequest = targetClass.maintenanceRequestList[0].clone(true, true, true, true);

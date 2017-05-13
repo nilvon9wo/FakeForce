@@ -2,9 +2,9 @@
 private class SF45_GenericDmlIntTest {
 	private static final User TestRunner = F45_RunAsUserFactory.create(); 
 	
-	@isTest static void testDoInsert(){
+	@isTest static void testDoInsert(){ 
 		// Arrange
-		SDAO_GenericDml targetClass = new SDAO_GenericDml(); 
+		F45_GenericDml targetClass = new F45_GenericDml(); 
 		
 		String testWarehouseSku = 'CM01-R';
 		Product2 template = new Product2(warehouse_sku__c = testWarehouseSku, cost__c = 1999);
