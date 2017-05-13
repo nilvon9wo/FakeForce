@@ -201,9 +201,19 @@ https://github.com/nilvon9wo/LtgJasmineUnitTesting
 2. Yury Sannikov offers a Mocha based solution.  I haven't had a chance to play with this yet, but it looks cleaner as the JavaScript can be tested without relying on Lightning infrastucture (though it requires additional setup on the developer machine):
 https://github.com/yury-sannikov/mocha-aura
 
+### Can you suggest any solution for end-to-end testing Lightning components?
+I'm not necessary suggesting end-to-end testing and I haven't tried it myself, but you'll find a popular solution at:
+https://github.com/stevebuik/greased
+
+But see also:
+https://testing.googleblog.com/2015/04/just-say-no-to-more-end-to-end-tests.html
+
 
 ### Can you suggest any solution for creating Behavior Driven Development tests in Salesforce.com 
 See https://github.com/nilvon9wo/zucchini
+
+
+
 
 ## Further Resources 
 ### Testing
