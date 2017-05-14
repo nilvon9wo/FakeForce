@@ -75,12 +75,12 @@ public class SF45_MaintenanceRequestHelperIntTest {
 	
 	private static void populateWorkPartSelector(Id maintenanceRequestId) {
     	Product2 equipmentTemplate = new Product2(maintenance_cycle__c = DAYS_TIL_NEXT_SERVICE_DUE);  
-		Product2 equipment = SF45_ProductFactory.create(equipmentTemplate, F45_FTY_DummyInsertMode.REAL);
+		Product2 equipment = SF45_ProductFactory.create(equipmentTemplate, F45_FTY_RecordInsertMode.REAL);
 		Work_Part__c workPartTemplate = new Work_Part__c(
 			maintenance_request__c = maintenanceRequestId,
 			equipment__c = equipment.id,
 			equipment__r = equipment
 		); 		
-		SF45_WorkPartFactory.create(workPartTemplate, F45_FTY_DummyInsertMode.REAL);  
+		SF45_WorkPartFactory.create(workPartTemplate, F45_FTY_RecordInsertMode.REAL);  
 	}
 }

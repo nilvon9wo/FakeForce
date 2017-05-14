@@ -7,7 +7,7 @@ private class SF45_ProductSelectorIntTest {
 		SDAO_ProductSelector targetClass = new SDAO_ProductSelector(); 
 
 		Product2 template = new Product2(maintenance_cycle__c = 1999);
-		Product2 testProduct = SF45_ProductFactory.create(template, F45_FTY_DummyInsertMode.REAL);
+		Product2 testProduct = SF45_ProductFactory.create(template, F45_FTY_RecordInsertMode.REAL);
 		
 		// Act
 		List<Product2> resultList;

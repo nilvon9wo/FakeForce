@@ -8,7 +8,7 @@ private class SF45_DML_GenericDmlIntTest {
 		
 		String testWarehouseSku = 'CM01-R';
 		Product2 template = new Product2(warehouse_sku__c = testWarehouseSku, cost__c = 1999);
-		Product2 newEquipment = SF45_ProductFactory.create(template, F45_FTY_DummyInsertMode.LATER);
+		Product2 newEquipment = SF45_ProductFactory.create(template, F45_FTY_RecordInsertMode.LATER);
 		
 		// Act
         System.runAs(TestRunner){

@@ -40,11 +40,11 @@ private class SF45_MaintenanceRequestsIntTest {
 		) {
 		Case maintenanceRequestTemplate = new Case(
 			status = 'Closed', 
-			vehicle__c = SF45_VehicleFactory.create(F45_FTY_DummyInsertMode.REAL).id, 
-			equipment__c = SF45_ProductFactory.create(F45_FTY_DummyInsertMode.REAL).id, 
+			vehicle__c = SF45_VehicleFactory.create(F45_FTY_RecordInsertMode.REAL).id, 
+			equipment__c = SF45_ProductFactory.create(F45_FTY_RecordInsertMode.REAL).id, 
 			type = requestType
 		);
-		Case newMaintenanceRequest = SF45_CaseFactory.create(maintenanceRequestTemplate, F45_FTY_DummyInsertMode.REAL);
+		Case newMaintenanceRequest = SF45_CaseFactory.create(maintenanceRequestTemplate, F45_FTY_RecordInsertMode.REAL);
 		Case closedMaintenanceRequest = [
 			SELECT id, isClosed, vehicle__c, equipment__c, type
 			FROM Case
@@ -58,13 +58,13 @@ private class SF45_MaintenanceRequestsIntTest {
 	
 	private static void initializeSelector(Id maintenanceRequestId) {
     	Product2 equipmentTemplate = new Product2(maintenance_cycle__c = DAYS_TIL_NEXT_SERVICE_DUE);  
-		Product2 equipment = SF45_ProductFactory.create(equipmentTemplate, F45_FTY_DummyInsertMode.REAL);
+		Product2 equipment = SF45_ProductFactory.create(equipmentTemplate, F45_FTY_RecordInsertMode.REAL);
 		Work_Part__c workPartTemplate = new Work_Part__c(
 			maintenance_request__c = maintenanceRequestId,
 			equipment__c = equipment.id,
 			equipment__r = equipment
 		); 		
-		SF45_WorkPartFactory.create(workPartTemplate, F45_FTY_DummyInsertMode.REAL);  
+		SF45_WorkPartFactory.create(workPartTemplate, F45_FTY_RecordInsertMode.REAL);  
 	}
 	
 	

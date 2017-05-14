@@ -90,11 +90,11 @@ private class SF45_MaintenanceRequestsTest {
 		) {
 		Case maintenanceRequestTemplate = new Case( 
 			status = 'Closed', 
-			vehicle__c = SF45_VehicleFactory.create(F45_FTY_DummyInsertMode.MOCK).id, 
-			equipment__c = SF45_ProductFactory.create(F45_FTY_DummyInsertMode.MOCK).id, 
+			vehicle__c = SF45_VehicleFactory.create(F45_FTY_RecordInsertMode.MOCK).id, 
+			equipment__c = SF45_ProductFactory.create(F45_FTY_RecordInsertMode.MOCK).id, 
 			type = requestType
 		);
-		Case newMaintenanceRequest = SF45_CaseFactory.create(maintenanceRequestTemplate, F45_FTY_DummyInsertMode.MOCK);		
+		Case newMaintenanceRequest = SF45_CaseFactory.create(maintenanceRequestTemplate, F45_FTY_RecordInsertMode.MOCK);		
 		List<Case> newMaintenanceRequestList = new List<Case>{newMaintenanceRequest};
 		
 		SF45_WorkPartSelectorMock fakeWorkPartSelector = new SF45_WorkPartSelectorMock(DAYS_TIL_NEXT_SERVICE_DUE);
@@ -114,9 +114,9 @@ private class SF45_MaintenanceRequestsTest {
 			new Product2(maintenance_cycle__c = DAYS_TIL_NEXT_SERVICE_DUE + 1),
 			new Product2(maintenance_cycle__c = DAYS_TIL_NEXT_SERVICE_DUE + 10)
 		}; 
-		List<Product2> equipmentList = SF45_ProductFactory.createList(equipmentTemplateList, F45_FTY_DummyInsertMode.MOCK);
+		List<Product2> equipmentList = SF45_ProductFactory.createList(equipmentTemplateList, F45_FTY_RecordInsertMode.MOCK);
 		Work_Part__c workPartTempate = new Work_Part__c(maintenance_request__c = maintenanceRequest.id);
-		List<Work_Part__c> workPartList = SF45_WorkPartFactory.createList(workPartTempate, equipmentList, F45_FTY_DummyInsertMode.MOCK);  
+		List<Work_Part__c> workPartList = SF45_WorkPartFactory.createList(workPartTempate, equipmentList, F45_FTY_RecordInsertMode.MOCK);  
 		
 		// Act
 		Date resultDate;  

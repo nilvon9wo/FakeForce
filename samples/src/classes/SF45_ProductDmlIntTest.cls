@@ -8,7 +8,7 @@ private class SF45_ProductDmlIntTest {
 
 		String testWarehouseSku = 'CM01-R';
 		Product2 template = new Product2(warehouse_sku__c = testWarehouseSku, cost__c = 1999);
-		SF45_ProductFactory.create(template, F45_FTY_DummyInsertMode.REAL); 
+		SF45_ProductFactory.create(template, F45_FTY_RecordInsertMode.REAL); 
 
 		Product2 updatedProduct = new Product2(warehouse_sku__c = testWarehouseSku, cost__c = 3422); 
 		
