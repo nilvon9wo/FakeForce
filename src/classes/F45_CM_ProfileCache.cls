@@ -1,16 +1,26 @@
 @isTest
 public with sharing class F45_CM_ProfileCache {
     private static Map<String, Profile> profileByNameMap;
+
+	F45_SEL_ProfileSelector selector;
+	
+	public F45_CM_ProfileCache(F45_SEL_ProfileSelector selector) {
+		this.selector = selector;
+	}
+	
+	public F45_CM_ProfileCache() {
+		this.selector = new F45_SEL_ProfileSelector();
+	}
     
-    public static Profile getByName(String name){
+    public Profile getByName(String name){
     	if (profileByNameMap == null) {
     		profileByNameMap = loadProfileByNameMap();
     	}
     	return profileByNameMap.get(name);
     }
     
-    private static Map<String, Profile> loadProfileByNameMap() {
-    	List<Profile> profileList = (new F45_SEL_ProfileSelector()).selectAll(); 
+    private Map<String, Profile> loadProfileByNameMap() {
+    	List<Profile> profileList = this.selector.selectAll(); 
     	profileByNameMap = new Map<String, Profile>();
     	for (Profile profile : profileList) {
     		profileByNameMap.put(profile.name, profile);
