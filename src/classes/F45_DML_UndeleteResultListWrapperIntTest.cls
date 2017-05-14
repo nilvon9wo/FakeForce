@@ -5,7 +5,6 @@ public with sharing class F45_DML_UndeleteResultListWrapperIntTest {
 	@isTest public static void testGetResultWrapperListShouldReturnListWithExpectedProperties() {
 		// Arrange
 		Account testAccount = F45_FTY_TestAccountFactory.create(F45_FTY_RecordInsertMode.REAL);
-		System.debug('####### testAccount: ' + testAccount);
 		Id testAccountId = testAccount.id;
 		delete testAccount;
 		Boolean notAllOrNone = false;
