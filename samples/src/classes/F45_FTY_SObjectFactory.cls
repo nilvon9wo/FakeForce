@@ -103,7 +103,8 @@ public virtual class F45_FTY_SObjectFactory {
 	public static Map<SObjectType, String> nameFieldOverrideMap = new Map<SObjectType, String>{
 		Case.getSObjectType() => 'subject',
 		Contact.getSObjectType() => 'lastName',
-		Lead.getSObjectType() => 'lastName'
+		Lead.getSObjectType() => 'lastName',
+		User.getSObjectType() => 'lastName'
 		
 		// NOTE: If you want to use this Factory with an SObject which does not contain any Text field,
 		//		 You will need to add one. 

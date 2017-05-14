@@ -5,7 +5,7 @@ public class SF45_ProductFactory extends F45_FTY_SObjectFactory {
 	};  
 	
 	public static List<Product2> createList(Product2 template, Integer quantity, F45_FTY_RecordInsertMode insertMode){
-		SObjectTemplateStrategyInterface strategy = new EquipmentInQuantityStrategy(template, quantity); 
+		SObjectTemplateStrategyInterface strategy = new ProductInQuantityStrategy(template, quantity); 
 		return (List<Product2>) F45_FTY_TestSObjectFactory.createTestList(strategy, insertMode); 
 	}
 	
@@ -20,20 +20,20 @@ public class SF45_ProductFactory extends F45_FTY_SObjectFactory {
 		return createList(template, quantity, insertMode)[0];
 	}
 
-	class EquipmentInQuantityStrategy extends SObjectInQuantityStrategy {
-		EquipmentInQuantityStrategy(SObject template, Integer quantity) {
-			super(template, quantity, 'Equipment ', defaultByKeyMap);
+	class ProductInQuantityStrategy extends SObjectInQuantityStrategy {
+		ProductInQuantityStrategy(SObject template, Integer quantity) {
+			super(template, quantity, 'Product ', defaultByKeyMap);
 		}
 	}
 	
 	public static List<Product2> createList(List<Product2> templateList, F45_FTY_RecordInsertMode insertMode){
-		SObjectTemplateStrategyInterface strategy = new EquipmentPerTemplateStrategy(templateList); 
+		SObjectTemplateStrategyInterface strategy = new ProductPerTemplateStrategy(templateList); 
 		return (List<Product2>) F45_FTY_TestSObjectFactory.createTestList(strategy, insertMode); 
 	}
 	
-	class EquipmentPerTemplateStrategy extends SObjectPerTemplateStrategy {
-		EquipmentPerTemplateStrategy(List<SObject> templateList) {
-			super(templateList, 'Equipment ', defaultByKeyMap);
+	class ProductPerTemplateStrategy extends SObjectPerTemplateStrategy {
+		ProductPerTemplateStrategy(List<SObject> templateList) {
+			super(templateList, 'Product ', defaultByKeyMap);
 		}
 	}
 }

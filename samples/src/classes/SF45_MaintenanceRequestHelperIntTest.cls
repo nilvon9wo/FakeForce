@@ -1,6 +1,6 @@
 @isTest
 public class SF45_MaintenanceRequestHelperIntTest {
-	private static final User TestRunner = F45_FTY_RunAsUserFactory.create(); 
+	private static final User TestRunner = F45_FTY_TestUserFactory.createTestRunner(); 
 	private static final Integer DAYS_TIL_NEXT_SERVICE_DUE = 35;
 
 	@isTest static void testMaintenanceRequest() {
