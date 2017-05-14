@@ -22,8 +22,8 @@ public with sharing class F45_DML_DeleteResultListWrapperIntTest {
 		System.assertEquals(1, resultWrapperList.size());
 		
 		F45_DML_DeleteResultWrapper resultWrapper = resultWrapperList[0];
-		System.assertEquals(testDeleteResult.id, resultWrapper.id);
-		System.assertEquals(testDeleteResult.isSuccess(), resultWrapper.wasSuccess);
-		System.assert(resultWrapper.errorList.isEmpty());
+		System.assertEquals(testDeleteResult.id, resultWrapper.getId());
+		System.assertEquals(testDeleteResult.isSuccess(), resultWrapper.isSuccess());
+		System.assert(resultWrapper.getErrorList().isEmpty());
 	}
 }

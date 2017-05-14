@@ -22,9 +22,9 @@ public with sharing class F45_DML_UpsertResultListWrapperIntTest {
 		System.assertEquals(1, resultWrapperList.size());
 		
 		F45_DML_UpsertResultWrapper resultWrapper = resultWrapperList[0];
-		System.assertEquals(testUpsertResult.id, resultWrapper.id);
+		System.assertEquals(testUpsertResult.id, resultWrapper.getId());
 		System.assertEquals(testUpsertResult.isCreated(), resultWrapper.wasCreated);
-		System.assertEquals(testUpsertResult.isSuccess(), resultWrapper.wasSuccess);
-		System.assert(resultWrapper.errorList.isEmpty());
+		System.assertEquals(testUpsertResult.isSuccess(), resultWrapper.isSuccess());
+		System.assert(resultWrapper.getErrorList().isEmpty());
 	}
 }
