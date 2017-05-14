@@ -1,4 +1,4 @@
-public with sharing class F45_DML_DeleteResultListWrapper implements F45_DML_GenericResultListWrapperIntf {
+public with sharing class F45_DML_DeleteResultListWrapper implements F45_DML_ResultListWrapperIntf {
     @testVisible private List<F45_DML_DeleteResultWrapper> resultWrapperList;
     
     public F45_DML_DeleteResultListWrapper(List<Database.DeleteResult> DeleteResultList) {
