@@ -7,6 +7,10 @@ public with sharing class F45_DML_SaveResultListWrapper implements F45_DML_Resul
     		resultWrapperList.add(new F45_DML_SaveResultWrapper(saveResult));
     	} 
     }
+
+    @testVisible
+    private F45_DML_SaveResultListWrapper() {
+    }
     
     public List<F45_DML_SaveResultWrapper> getResultWrapperList() {
     	return this.resultWrapperList;

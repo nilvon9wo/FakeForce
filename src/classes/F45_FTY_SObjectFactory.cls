@@ -79,20 +79,20 @@
  **/
 //@isTest -- But SFDC does not allow this annotation on virtual classes
 public virtual class F45_FTY_SObjectFactory {
-	F45_FTY_DmlHelperIntf dmlHelper;
+	F45_FTY_SObjectFactoryDml factoryDml;
 	
-	public F45_FTY_SObjectFactory(F45_FTY_DmlHelperIntf dmlHelper){
-		this.dmlHelper = dmlHelper;
+	public F45_FTY_SObjectFactory(F45_FTY_SObjectFactoryDml factoryDml){
+		this.factoryDml = factoryDml;
 	}
 	
 	public F45_FTY_SObjectFactory(){
-		this(new F45_FTY_DmlForProductionHelper());
+		this(new F45_FTY_SObjectFactoryDml());  
 	}
 	
 	public List<SObject> createList (SObjectTemplateStrategyInterface templateStrategy, F45_FTY_RecordInsertMode insertMode) {
 		List<SObject> sObjectList = new List<SObject>();
 		templateStrategy.execute(sObjectList);  
-		this.dmlHelper.doInsert(sObjectList, insertMode); 
+		this.factoryDml.doInsert(sObjectList, insertMode); 
 		return sObjectList;
 	}
 	 
