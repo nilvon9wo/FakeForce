@@ -1,8 +1,3 @@
-/**
- * We can't mock out the return types for these methods, so we return empty lists.
- * If your code will do something with the returns, you must put your result process into an injectable dependency 
- * so you can replace the handler while your tests are executing.
- **/
 @isTest 
 public class F45_GenericDmlMock extends F45_GenericDml {
 	// These need to be lists in case there are multiple DML operations during your test.
@@ -22,53 +17,52 @@ public class F45_GenericDmlMock extends F45_GenericDml {
 	public List<List<SObject>> undeletedSObjectListList = new List<List<SObject>>();
 	public List<Boolean> undeleteWasAllOrNoneList = new List<Boolean>();
 	
-    public override List<Database.SaveResult> doInsert(List<SObject> objectList, Boolean isAllOrNone) {
+    public List<F45_DmlResultListWrapperInterface> dmlResultListWrapperList;
+    private Integer returnedResult = 0;
+
+    public override F45_SaveResultListWrapper doInsert(List<SObject> objectList, Boolean isAllOrNone) {
     	if (objectList != null && !objectList.isEmpty()) {
     		this.insertedSObjectListList.add(objectList);
     	}
    		this.insertWasAllOrNoneList.add(isAllOrNone);
-   		
-   		// Unfortunately, I can't find information how to construct a SaveResult, so we can't mock the return. :-(
-   		return new List<Database.SaveResult>();
+   		return (F45_SaveResultListWrapper) this.getNextResultList();
     }
 
-    public override List<Database.SaveResult> doUpdate(List<SObject> objectList, Boolean isAllOrNone) {
+    public override F45_SaveResultListWrapper doUpdate(List<SObject> objectList, Boolean isAllOrNone) {
     	if (objectList != null && !objectList.isEmpty()) {
     		this.updatedSObjectListList.add(objectList);
     	}
    		this.updateWasAllOrNoneList.add(isAllOrNone);
-   		
-   		// Unfortunately, I can't find information how to construct a SaveResult, so we can't mock the return. :-(
-   		return new List<Database.SaveResult>();
+   		return (F45_SaveResultListWrapper) this.getNextResultList();
     }
     
-    public override List<Database.UpsertResult> doUpsert(List<SObject> objectList, Boolean isAllOrNone) {
+    public override F45_UpsertResultListWrapper doUpsert(List<SObject> objectList, Boolean isAllOrNone) {
     	if (objectList != null && !objectList.isEmpty()) {
     		this.upsertedSObjectListList.add(objectList);
     	}
    		this.upsertWasAllOrNoneList.add(isAllOrNone);
-   		
-   		// Unfortunately, I can't find information how to construct a UpsertResult, so we can't mock the return. :-(
-   		return new List<Database.UpsertResult>();
+   		return (F45_UpsertResultListWrapper) this.getNextResultList();
     }
     
-    public override List<Database.DeleteResult> doDelete(List<SObject> objectList, Boolean isAllOrNone) {
+    public override F45_DeleteResultListWrapper doDelete(List<SObject> objectList, Boolean isAllOrNone) {
     	if (objectList != null && !objectList.isEmpty()) {
     		this.deletedSObjectListList.add(objectList);
     	}
    		this.deleteWasAllOrNoneList.add(isAllOrNone);
-   		
-   		// Unfortunately, I can't find information how to construct a DeleteResult, so we can't mock the return. :-(
-   		return new List<Database.DeleteResult>();
+   		return (F45_DeleteResultListWrapper) this.getNextResultList();
     }
     
-    public override List<Database.UndeleteResult> doUndelete(List<SObject> objectList, Boolean isAllOrNone) {
+    public override F45_UndeleteResultListWrapper doUndelete(List<SObject> objectList, Boolean isAllOrNone) {
     	if (objectList != null && !objectList.isEmpty()) {
     		this.undeletedSObjectListList.add(objectList);
     	}
    		this.undeleteWasAllOrNoneList.add(isAllOrNone);
-   		
-   		// Unfortunately, I can't find information how to construct a UndeleteResult, so we can't mock the return. :-(
-   		return new List<Database.UndeleteResult>();
+   		return (F45_UndeleteResultListWrapper) this.getNextResultList();
+    }
+    
+    private F45_DmlResultListWrapperInterface getNextResultList() {
+    	return (dmlResultListWrapperList != null)
+    		? dmlResultListWrapperList[returnedResult++]
+    		: null;
     }
 }
