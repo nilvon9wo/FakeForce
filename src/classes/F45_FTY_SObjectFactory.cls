@@ -79,14 +79,24 @@
  **/
 //@isTest -- But SFDC does not allow this annotation on virtual classes
 public virtual class F45_FTY_SObjectFactory {
-	public static List<SObject> createList (MockStrategyInterface mockStrategy, F45_FTY_DummyInsertMode insertMode) {
-		List<SObject> mockSObjectList = new List<SObject>();
-		mockStrategy.execute(mockSObjectList);  
-		F45_FTY_DmlHelper.doInsert(mockSObjectList, insertMode);
-		return mockSObjectList;
+	F45_FTY_DmlHelperIntf dmlHelper;
+	
+	public F45_FTY_SObjectFactory(F45_FTY_DmlHelperIntf dmlHelper){
+		this.dmlHelper = dmlHelper;
 	}
 	
-	public interface MockStrategyInterface {
+	public F45_FTY_SObjectFactory(){
+		this(new F45_FTY_DmlForProductionHelper());
+	}
+	
+	public List<SObject> createList (SObjectTemplateStrategyInterface templateStrategy, F45_FTY_RecordInsertMode insertMode) {
+		List<SObject> sObjectList = new List<SObject>();
+		templateStrategy.execute(sObjectList);  
+		this.dmlHelper.doInsert(sObjectList, insertMode); 
+		return sObjectList;
+	}
+	 
+	public interface SObjectTemplateStrategyInterface {
 		List<SObject> execute(List<SObject> mockSObjectList);
 	} 
 
@@ -102,7 +112,7 @@ public virtual class F45_FTY_SObjectFactory {
 
 	// ----------------------------------------------------------------------------------------
 	
-	public virtual class SObjectInQuantityStrategy implements MockStrategyInterface {
+	public virtual class SObjectInQuantityStrategy implements SObjectTemplateStrategyInterface {
 		protected SObject template;
 		protected Integer quantity;
 		protected String defaultName; 
@@ -184,7 +194,7 @@ public virtual class F45_FTY_SObjectFactory {
 
 	// ----------------------------------------------------------------------------------------
 	
-	public virtual class SObjectPerTemplateStrategy implements MockStrategyInterface {
+	public virtual class SObjectPerTemplateStrategy implements SObjectTemplateStrategyInterface {
 		protected List<SObject> templateList;
 		protected String defaultName; 
 		protected Map<String, Object> defaultByKeyMap; 

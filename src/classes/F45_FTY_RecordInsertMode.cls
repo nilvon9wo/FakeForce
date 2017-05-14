@@ -14,7 +14,7 @@
  *  A: Maybe, but you may have unexpected results when the two sObjects interact, particularly if there is DML.
  **/
 // @isTest , but SFDC won't let us annotate enum that was. 
-public enum F45_FTY_DummyInsertMode 
+public enum F45_FTY_RecordInsertMode 
 {
 	NONE,	// Use if SObject will NOT be used in any DML, SOQL, etc. operations.
 	MOCK,	// Ibid., but an SObject Id is required for some tests.
