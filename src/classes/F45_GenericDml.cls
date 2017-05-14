@@ -1,10 +1,6 @@
 /**
  * This is NOT a test class.
  * Inject this class into the classes where you perform DML so you can mock it out with F45_GenericDmlMock during testing.
- * 
- * Note, if your code consumes the returned results and you wish to use F45_GenericDmlMock when testing, 
- * you must also handle the consumption through another dependency.
- * We can not mock out the return types, so the mock methods return empty lists.
  **/ 
 public virtual class F45_GenericDml {
 	public static Boolean IS_ALL_OR_NONE = true; 

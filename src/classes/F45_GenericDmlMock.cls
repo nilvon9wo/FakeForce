@@ -1,8 +1,3 @@
-/**
- * We can't mock out the return types for these methods, so we return empty lists.
- * If your code will do something with the returns, you must put your result process into an injectable dependency 
- * so you can replace the handler while your tests are executing.
- **/
 @isTest 
 public class F45_GenericDmlMock extends F45_GenericDml {
 	// These need to be lists in case there are multiple DML operations during your test.
@@ -22,7 +17,7 @@ public class F45_GenericDmlMock extends F45_GenericDml {
 	public List<List<SObject>> undeletedSObjectListList = new List<List<SObject>>();
 	public List<Boolean> undeleteWasAllOrNoneList = new List<Boolean>();
 	
-	public List<F45_DmlResultListWrapperInterface> dmlResultListWrapperList;
+	public List<F45_DmlResultListWrapperInterface> dmlResultListWrapperList = new List<F45_DmlResultListWrapperInterface>();
 	
     public override F45_SaveResultListWrapper doInsert(List<SObject> objectList, Boolean isAllOrNone) {
     	if (objectList != null && !objectList.isEmpty()) {
