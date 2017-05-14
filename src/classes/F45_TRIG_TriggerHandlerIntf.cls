@@ -9,4 +9,4 @@ public interface F45_TRIG_TriggerHandlerIntf {
     void onAfterDelete (Map<Id, SObject> oldSObjectByIdMap);
     
     void onAfterUndelete(Map<Id, SObject> newSObjectByIdMap);
-} 
+}
