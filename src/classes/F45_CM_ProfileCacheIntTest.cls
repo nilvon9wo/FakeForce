@@ -8,7 +8,7 @@ public with sharing class F45_CM_ProfileCacheIntTest {
 	private static final Profile EXPECTED_PROFILE = EXPECTED_PROFILE_LIST[0];
 	private static final String EXPECTED_PROFILE_NAME = EXPECTED_PROFILE.name;
 
-	@isTest public static void testLoadProfileByNameMapShouldPopulateTheMap() {
+	@isTest public static void testBuildProfileByNameMapShouldPopulateTheMap() {
 		// Arrange
 		// Nothing to do here
 		

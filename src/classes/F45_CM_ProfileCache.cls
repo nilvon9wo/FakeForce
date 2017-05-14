@@ -13,7 +13,7 @@ public with sharing class F45_CM_ProfileCache {
 	}
     
     public Profile getByName(String name){
-    	if (profileByNameMap == null) {
+    	if (profileByNameMap == null || profileByNameMap.get(name) == null) {
     		profileByNameMap = buildProfileByNameMap();
     	}
     	return profileByNameMap.get(name);

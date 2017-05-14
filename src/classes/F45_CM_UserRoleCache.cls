@@ -13,7 +13,7 @@ public with sharing class F45_CM_UserRoleCache {
 	}
     
     public UserRole getByName(String name){
-    	if (userRoleByNameMap == null) {
+    	if (userRoleByNameMap == null || userRoleByNameMap.get(name) == null) {
     		userRoleByNameMap = buildUserRoleByNameMap();
     	}
     	return userRoleByNameMap.get(name);
