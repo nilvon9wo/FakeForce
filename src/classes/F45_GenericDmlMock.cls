@@ -17,8 +17,9 @@ public class F45_GenericDmlMock extends F45_GenericDml {
 	public List<List<SObject>> undeletedSObjectListList = new List<List<SObject>>();
 	public List<Boolean> undeleteWasAllOrNoneList = new List<Boolean>();
 	
-	public List<F45_DmlResultListWrapperInterface> dmlResultListWrapperList = new List<F45_DmlResultListWrapperInterface>();
-	
+    public List<F45_DmlResultListWrapperInterface> dmlResultListWrapperList;
+    private Integer returnedResult = 0;
+
     public override F45_SaveResultListWrapper doInsert(List<SObject> objectList, Boolean isAllOrNone) {
     	if (objectList != null && !objectList.isEmpty()) {
     		this.insertedSObjectListList.add(objectList);
@@ -59,10 +60,9 @@ public class F45_GenericDmlMock extends F45_GenericDml {
    		return (F45_UndeleteResultListWrapper) this.getNextResultList();
     }
     
-    private Integer returnedResult = 0;
     private F45_DmlResultListWrapperInterface getNextResultList() {
-    	F45_DmlResultListWrapperInterface listWrapper = dmlResultListWrapperList[returnedResult];
-    	returnedResult++;
-    	return listWrapper;
+    	return (dmlResultListWrapperList != null)
+    		? dmlResultListWrapperList[returnedResult++]
+    		: null;
     }
 }
