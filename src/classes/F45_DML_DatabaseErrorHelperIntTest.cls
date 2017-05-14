@@ -26,7 +26,7 @@ public with sharing class F45_DML_DatabaseErrorHelperIntTest {
 		System.assertEquals(testError.getStatusCode(), resultWrapper.statusCode);
 	}
 
-	@isTest public static void testConvertShouldReturnNullWhenNullInput() {
+	@isTest public static void testConvertShouldReturnAnEmptyListWhenNullInput() {
 		// Arrange
 		// Nothing to do here
 		
@@ -39,6 +39,6 @@ public with sharing class F45_DML_DatabaseErrorHelperIntTest {
 		Test.stopTest();
 		
 		// Assert
-		System.assertEquals(null, resultWrapperList);
+		System.assert(resultWrapperList.isEmpty());
 	}
 }

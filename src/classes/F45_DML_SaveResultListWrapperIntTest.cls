@@ -22,8 +22,8 @@ public with sharing class F45_DML_SaveResultListWrapperIntTest {
 		System.assertEquals(1, resultWrapperList.size());
 		
 		F45_DML_SaveResultWrapper resultWrapper = resultWrapperList[0];
-		System.assertEquals(testSaveResult.id, resultWrapper.id);
-		System.assertEquals(testSaveResult.isSuccess(), resultWrapper.wasSuccess);
-		System.assert(resultWrapper.errorList.isEmpty());
+		System.assertEquals(testSaveResult.id, resultWrapper.getId());
+		System.assertEquals(testSaveResult.isSuccess(), resultWrapper.isSuccess());
+		System.assert(resultWrapper.getErrorList().isEmpty());
 	}
 }

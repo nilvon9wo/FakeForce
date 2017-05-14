@@ -18,7 +18,7 @@ public class F45_FTY_TestUserFactory extends F45_FTY_SObjectFactory {
 	
     public static User createTestRunner(){
         Integer unique = (Integer) (Math.random() * 999999);
-        String testerName = 'Testuser' + unique;
+        String testerName = 'TestRunner' + unique;
         return createTestRunner(testerName, ADMNISTRATOR_PROFILE, DEFAULT_USER_ROLE);
     }
 
@@ -54,7 +54,9 @@ public class F45_FTY_TestUserFactory extends F45_FTY_SObjectFactory {
 	}
 	
 	public static User create(F45_FTY_RecordInsertMode insertMode){
-		return create(new User(), insertMode);
+        Integer unique = (Integer) (Math.random() * 999999);
+        String lastName = 'SomeOtherUser' + unique;
+		return create(new User(lastName = lastName), insertMode);
 	}
 
 	class UserInQuantityStrategy extends SObjectInQuantityStrategy {

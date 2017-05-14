@@ -49,7 +49,7 @@ public with sharing class F45_DML_UndeleteResultWrapperIntTest {
 		Test.stopTest();
 		
 		// Assert
-		System.assertEquals(null, resultWrapperList);
+		System.assert(resultWrapperList.isEmpty());
 	}
     
 	@isTest public static void testWrapperConstructionShouldBePossibleWithoutASeedError() {
