@@ -1,6 +1,6 @@
 @isTest
 private class SF45_MaintenanceRequestHelperTest { 
-	private static final User TestRunner = F45_RunAsUserFactory.create(); 
+	private static final User TestRunner = F45_FTY_RunAsUserFactory.create(); 
 	
 	@isTest static void onAfterUpdateShouldUpdateWorkOrders(){
 		// Arrange

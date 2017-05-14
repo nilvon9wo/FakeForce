@@ -1,11 +1,11 @@
 public virtual class SPRD_MaintenanceRequests {  
     @testVisible private List<Case> maintenanceRequestList;
-    private F45_GenericDml genericDml; 
+    private F45_DML_GenericDml genericDml; 
     private SDAO_WorkPartSelector workPartSelector;
  
     public SPRD_MaintenanceRequests(
     		List<Case> maintenanceRequestList, 
-    		F45_GenericDml genericDml, 
+    		F45_DML_GenericDml genericDml, 
     		SDAO_WorkPartSelector workPartSelector
     	) {
         this.maintenanceRequestList = maintenanceRequestList;
@@ -14,7 +14,7 @@ public virtual class SPRD_MaintenanceRequests {
     } 
 
     public SPRD_MaintenanceRequests(List<Case> maintenanceRequestList) {
-        this(maintenanceRequestList, new F45_GenericDml(), new SDAO_WorkPartSelector());
+        this(maintenanceRequestList, new F45_DML_GenericDml(), new SDAO_WorkPartSelector());
     } 
 
     public virtual void updateWorkOrders(Map<Id,SObject> oldMaintenanceRequestMap) {

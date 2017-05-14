@@ -1,14 +1,14 @@
 @isTest 
-private class SF45_GenericDmlIntTest {
-	private static final User TestRunner = F45_RunAsUserFactory.create(); 
+private class SF45_DML_GenericDmlIntTest {
+	private static final User TestRunner = F45_FTY_RunAsUserFactory.create(); 
 	
 	@isTest static void testDoInsert(){ 
 		// Arrange
-		F45_GenericDml targetClass = new F45_GenericDml(); 
+		F45_DML_GenericDml targetClass = new F45_DML_GenericDml(); 
 		
 		String testWarehouseSku = 'CM01-R';
 		Product2 template = new Product2(warehouse_sku__c = testWarehouseSku, cost__c = 1999);
-		Product2 newEquipment = SF45_ProductFactory.create(template, F45_DummyInsertMode.LATER);
+		Product2 newEquipment = SF45_ProductFactory.create(template, F45_FTY_DummyInsertMode.LATER);
 		
 		// Act
         System.runAs(TestRunner){

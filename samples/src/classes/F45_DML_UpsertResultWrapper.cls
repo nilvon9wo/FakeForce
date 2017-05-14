@@ -1,22 +1,22 @@
-public with sharing class F45_UpsertResultWrapper implements F45_DmlResultWrapperInterface {
+public with sharing class F45_DML_UpsertResultWrapper implements F45_DML_GenericResultWrapperIntf {
 	@testVisible private Id id;
 	@testVisible private Boolean wasSuccess;
 	@testVisible private Boolean wasCreated;
-	@testVisible private List<F45_DatabaseErrorWrapper> errorList; 
+	@testVisible private List<F45_DML_DatabaseErrorWrapper> errorList; 
 	
-    public F45_UpsertResultWrapper(Database.UpsertResult result) {
+    public F45_DML_UpsertResultWrapper(Database.UpsertResult result) {
     	this.id = result.id;
     	this.wasSuccess = result.isSuccess();
     	for (Database.Error error : result.errors) {
     		if (errorList == null) {
-    			errorList = new List<F45_DatabaseErrorWrapper>();
+    			errorList = new List<F45_DML_DatabaseErrorWrapper>();
     		}
-    		errorList.add(new F45_DatabaseErrorWrapper(error));
+    		errorList.add(new F45_DML_DatabaseErrorWrapper(error));
     	}
     } 
     
     @testVisible() 
-    private F45_UpsertResultWrapper() {
+    private F45_DML_UpsertResultWrapper() {
     } 
     
     public Id getId() {
@@ -31,7 +31,7 @@ public with sharing class F45_UpsertResultWrapper implements F45_DmlResultWrappe
     	return this.wasSuccess;
 	}
 
-	public List<F45_DatabaseErrorWrapper> getErrorList() {
+	public List<F45_DML_DatabaseErrorWrapper> getErrorList() {
 		return this.errorList;
 	}
 }

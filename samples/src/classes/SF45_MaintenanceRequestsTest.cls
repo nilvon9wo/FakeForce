@@ -1,6 +1,6 @@
 @isTest
 private class SF45_MaintenanceRequestsTest {
-	private static final User TestRunner = F45_RunAsUserFactory.create(); 
+	private static final User TestRunner = F45_FTY_RunAsUserFactory.create(); 
 	private static final Integer DAYS_TIL_NEXT_SERVICE_DUE = 35;
 	
 	@isTest static void testUpdateWorkOrdersShouldCreateNewRequestsForClosedRepairs(){
@@ -13,7 +13,7 @@ private class SF45_MaintenanceRequestsTest {
 
 	static void testUpdateWorkOrdersShouldCreateNewRequestsForSpecifiedClosedRequests(String requestType){
 		// Arrange
-		F45_GenericDmlMock fakeGenericDml = new F45_GenericDmlMock();  
+		F45_DML_GenericDmlMock fakeGenericDml = new F45_DML_GenericDmlMock();  
 		SPRD_MaintenanceRequests targetClass = initializeMaintenanceRequests(requestType, fakeGenericDml); 
 
 		Case oldMaintenanceRequest = targetClass.maintenanceRequestList[0].clone(true, true, true, true);
@@ -43,7 +43,7 @@ private class SF45_MaintenanceRequestsTest {
 	
 	@isTest static void testUpdateWorkOrdersShouldDoNothingForOpenUpdates(){
 		// Arrange
-		F45_GenericDmlMock fakeGenericDml = new F45_GenericDmlMock();  
+		F45_DML_GenericDmlMock fakeGenericDml = new F45_DML_GenericDmlMock();  
 		SPRD_MaintenanceRequests targetClass = initializeMaintenanceRequests('Routine Maintenance', fakeGenericDml);
 		targetClass.maintenanceRequestList[0].status = 'New';
 		
@@ -65,7 +65,7 @@ private class SF45_MaintenanceRequestsTest {
 	
 	@isTest static void testUpdateWorkOrdersShouldDoNothingForOtherClosedRequests() {
 		// Arrange
-		F45_GenericDmlMock fakeGenericDml = new F45_GenericDmlMock();  
+		F45_DML_GenericDmlMock fakeGenericDml = new F45_DML_GenericDmlMock();  
 		SPRD_MaintenanceRequests targetClass = initializeMaintenanceRequests('Mechanical', fakeGenericDml);
 		
 		Case oldMaintenanceRequest = targetClass.maintenanceRequestList[0].clone(true, true, true, true);
@@ -86,15 +86,15 @@ private class SF45_MaintenanceRequestsTest {
 	
 	private static SPRD_MaintenanceRequests initializeMaintenanceRequests(
 			String requestType, 
-			F45_GenericDmlMock fakeGenericDml
+			F45_DML_GenericDmlMock fakeGenericDml
 		) {
 		Case maintenanceRequestTemplate = new Case( 
 			status = 'Closed', 
-			vehicle__c = SF45_VehicleFactory.create(F45_DummyInsertMode.MOCK).id, 
-			equipment__c = SF45_ProductFactory.create(F45_DummyInsertMode.MOCK).id, 
+			vehicle__c = SF45_VehicleFactory.create(F45_FTY_DummyInsertMode.MOCK).id, 
+			equipment__c = SF45_ProductFactory.create(F45_FTY_DummyInsertMode.MOCK).id, 
 			type = requestType
 		);
-		Case newMaintenanceRequest = SF45_CaseFactory.create(maintenanceRequestTemplate, F45_DummyInsertMode.MOCK);		
+		Case newMaintenanceRequest = SF45_CaseFactory.create(maintenanceRequestTemplate, F45_FTY_DummyInsertMode.MOCK);		
 		List<Case> newMaintenanceRequestList = new List<Case>{newMaintenanceRequest};
 		
 		SF45_WorkPartSelectorMock fakeWorkPartSelector = new SF45_WorkPartSelectorMock(DAYS_TIL_NEXT_SERVICE_DUE);
@@ -105,7 +105,7 @@ private class SF45_MaintenanceRequestsTest {
 	
 	@isTest static void testSelectDueDateShouldUseLowestMaintenanceCycleToReturnDate() {
 		// Arrange
-		F45_GenericDmlMock fakeGenericDml = new F45_GenericDmlMock();  
+		F45_DML_GenericDmlMock fakeGenericDml = new F45_DML_GenericDmlMock();  
 		SPRD_MaintenanceRequests targetClass = initializeMaintenanceRequests('', fakeGenericDml);
 		
 		Case maintenanceRequest = targetClass.maintenanceRequestList[0].clone(true, true, true, true);
@@ -114,9 +114,9 @@ private class SF45_MaintenanceRequestsTest {
 			new Product2(maintenance_cycle__c = DAYS_TIL_NEXT_SERVICE_DUE + 1),
 			new Product2(maintenance_cycle__c = DAYS_TIL_NEXT_SERVICE_DUE + 10)
 		}; 
-		List<Product2> equipmentList = SF45_ProductFactory.createList(equipmentTemplateList, F45_DummyInsertMode.MOCK);
+		List<Product2> equipmentList = SF45_ProductFactory.createList(equipmentTemplateList, F45_FTY_DummyInsertMode.MOCK);
 		Work_Part__c workPartTempate = new Work_Part__c(maintenance_request__c = maintenanceRequest.id);
-		List<Work_Part__c> workPartList = SF45_WorkPartFactory.createList(workPartTempate, equipmentList, F45_DummyInsertMode.MOCK);  
+		List<Work_Part__c> workPartList = SF45_WorkPartFactory.createList(workPartTempate, equipmentList, F45_FTY_DummyInsertMode.MOCK);  
 		
 		// Act
 		Date resultDate;  
@@ -134,7 +134,7 @@ private class SF45_MaintenanceRequestsTest {
 
 	@isTest static void testSelectDueDateShouldDefaultToYear4000() {
 		// Arrange
-		F45_GenericDmlMock fakeGenericDml = new F45_GenericDmlMock();  
+		F45_DML_GenericDmlMock fakeGenericDml = new F45_DML_GenericDmlMock();  
 		SPRD_MaintenanceRequests targetClass = initializeMaintenanceRequests('', fakeGenericDml);
 		
 		Case maintenanceRequest = targetClass.maintenanceRequestList[0].clone(true, true, true, true);

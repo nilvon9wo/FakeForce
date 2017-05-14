@@ -1,20 +1,20 @@
 @isTest 
-public class SF45_ProductFactory extends F45_SObjectFactory {
+public class SF45_ProductFactory extends F45_FTY_SObjectFactory {
 	private static Map<String, Object> defaultByKeyMap = new Map<String, Object>{
 		'replacement_part__c' => true
 	};  
 	
-	public static List<Product2> createList(Product2 template, Integer quantity, F45_DummyInsertMode insertMode){
+	public static List<Product2> createList(Product2 template, Integer quantity, F45_FTY_DummyInsertMode insertMode){
 		MockStrategyInterface strategy = new EquipmentInQuantityStrategy(template, quantity); 
-		return (List<Product2>) F45_SObjectFactory.createList(strategy, insertMode); 
+		return (List<Product2>) F45_FTY_SObjectFactory.createList(strategy, insertMode); 
 	}
 	
-	public static Product2 create(Product2 template, F45_DummyInsertMode insertMode){
+	public static Product2 create(Product2 template, F45_FTY_DummyInsertMode insertMode){
 		Integer quantity = 1;
 		return createList(template, quantity, insertMode)[0];
 	}
 
-	public static Product2 create(F45_DummyInsertMode insertMode){
+	public static Product2 create(F45_FTY_DummyInsertMode insertMode){
 		Product2 template = new Product2();
 		Integer quantity = 1;
 		return createList(template, quantity, insertMode)[0];
@@ -26,9 +26,9 @@ public class SF45_ProductFactory extends F45_SObjectFactory {
 		}
 	}
 	
-	public static List<Product2> createList(List<Product2> templateList, F45_DummyInsertMode insertMode){
+	public static List<Product2> createList(List<Product2> templateList, F45_FTY_DummyInsertMode insertMode){
 		MockStrategyInterface strategy = new EquipmentPerTemplateStrategy(templateList); 
-		return (List<Product2>) F45_SObjectFactory.createList(strategy, insertMode); 
+		return (List<Product2>) F45_FTY_SObjectFactory.createList(strategy, insertMode); 
 	}
 	
 	class EquipmentPerTemplateStrategy extends SObjectPerTemplateStrategy {
