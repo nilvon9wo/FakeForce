@@ -13,9 +13,9 @@
  * 		Now, rather than living and reliving variations of that nightmare, you can have a utility class which is responsible for
  *		creating each instead of test data.
  *
- * 	Q: Why use the FakeForce SObject Factory (F45_SObjectFactory), instead of just creating my own factories?
+ * 	Q: Why use the FakeForce SObject Factory (F45_FTY_SObjectFactory), instead of just creating my own factories?
  *
- * 	A: F45_SObjectFactory creates a standardized way of manufacturing data, ensuring that your test data factories have consistent interfaces
+ * 	A: F45_FTY_SObjectFactory creates a standardized way of manufacturing data, ensuring that your test data factories have consistent interfaces
  * 		and you don't need to reimplement logic for transcribing data from your templates and deciding whether to insert.
  *
  * 	Q: What is the point of the SObject templates which can be passed into your creation methods?
@@ -28,10 +28,10 @@
  *		So, instead, you create an SObject with the values you care about (for example, an Account's name) and the factory will take
  *		of filling in required fields and (if necessary) provide an SFID (either real or fake).
  *
- *  Q: How can I use the F45_SObjectFactory to fake data for SObjects without a name fields? 
+ *  Q: How can I use the F45_FTY_SObjectFactory to fake data for SObjects without a name fields? 
  *     	(And why is this a problem anyway?)
  *
- *  A: In order to facilitate debugging, the included F45_SObjectFactory mocking strategies will gives each SObject instance a unique text value.  
+ *  A: In order to facilitate debugging, the included F45_FTY_SObjectFactory mocking strategies will gives each SObject instance a unique text value.  
  *		By default, it stores this value in the "Name" property, which causes an error if that property does not exist.
  *     	In order to fix this, you have two possibilites:
  *
@@ -40,7 +40,7 @@
  *      2. Create your own Mock Strategy Implementation
  *      	If you create something useful, please send a pull request.  :-)  
  *
- *  Q: How can I use the F45_SObjectFactory to fake data for SObjects without any text fields?
+ *  Q: How can I use the F45_FTY_SObjectFactory to fake data for SObjects without any text fields?
  *  
  *  A: In order to fix this, you have three possibilites:
  *  	1. (Recommended) Add a text field to the SObject.  You can keep this hidden from real users.
@@ -48,7 +48,7 @@
  *  	2. Create your own Mock Strategy Implementation
  * 	   		If you create something useful, please send a pull request.  :-)
  *	
- *  	3. (Not recommended) Refactor F45_SObjectFactory so such a field is no longer required.
+ *  	3. (Not recommended) Refactor F45_FTY_SObjectFactory so such a field is no longer required.
  *	   		If you feel your modification is really worth sharing feel free to explain why and send a pull request.  
  * 
  *  Q: Why isn't the SF45_WorkPartFactory class working as expected?
@@ -64,25 +64,25 @@
  *
  *  A: As the nameFieldOverrideMap is a public property, you can put values into it when you arrange your tests.
  *
- *  Q: Does F45_SObjectFactory need coverage?  If so, why?
+ *  Q: Does F45_FTY_SObjectFactory need coverage?  If so, why?
  *
  *  A: Salesforce.com does not allow developers to annotate virtual classes with @isTest.
- * 		F45_SObjectFactory needs to be a virtual class so it can be extended by concrete data factories, such as SF45_ProductFactory.
+ * 		F45_FTY_SObjectFactory needs to be a virtual class so it can be extended by concrete data factories, such as SF45_ProductFactory.
  *
- *		If you use all the strategies in F45_SObjectFactory, the class will be covered 100%.
+ *		If you use all the strategies in F45_FTY_SObjectFactory, the class will be covered 100%.
  *		If you do not use all the strategies, you can safely delete those which you don't use. 
  *
- *	Q: Why haven't you included tests for the F45_SObjectFactory?
+ *	Q: Why haven't you included tests for the F45_FTY_SObjectFactory?
  * 
  *	A: When I created the Factory, the tests which depended upon it were sufficent to prove its viability, as well as provide 100% coverage.
  *		If you feel they are desirable, feel free to create them and send a pull request. :-)
  **/
 //@isTest -- But SFDC does not allow this annotation on virtual classes
-public virtual class F45_SObjectFactory {
-	public static List<SObject> createList (MockStrategyInterface mockStrategy, F45_DummyInsertMode insertMode) {
+public virtual class F45_FTY_SObjectFactory {
+	public static List<SObject> createList (MockStrategyInterface mockStrategy, F45_FTY_DummyInsertMode insertMode) {
 		List<SObject> mockSObjectList = new List<SObject>();
 		mockStrategy.execute(mockSObjectList);  
-		F45_DMLHelper.doInsert(mockSObjectList, insertMode);
+		F45_FTY_DmlHelper.doInsert(mockSObjectList, insertMode);
 		return mockSObjectList;
 	}
 	

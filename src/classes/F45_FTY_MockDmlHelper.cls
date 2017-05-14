@@ -14,7 +14,7 @@
  *	Of course, if you implement any of this, feel free to send me a pull request. :-)
  **/
 @isTest
-public class F45_MockDMLHelper 
+public class F45_FTY_MockDmlHelper 
 {
     private static Integer mockIdCounter = 1;
 
@@ -26,7 +26,7 @@ public class F45_MockDMLHelper
             
             String  mockIdString   = '00000000000' + mockIdCounter++;   // We increment the mockIdCounter so each dummy SObject gets a unique identifier.
             Integer subStringStart = (mockIdString.length() > 12) ? (mockIdString.length() - 12) : 0; 
-            dummySObject.put('id', (Id) (F45_SObjectPrefixHelper.get(dummySObject.getSObjectType()) + mockIdString.subString(subStringStart))); 
+            dummySObject.put('id', (Id) (F45_FTY_SObjectPrefixHelper.get(dummySObject.getSObjectType()) + mockIdString.subString(subStringStart))); 
 
             // TODO: Add support for after trigger mocking.  
 

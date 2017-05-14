@@ -1,12 +1,12 @@
 /**
  *  Anticipated Questions and anwsers
  *
- *  Q: Why should I use F45_RunAsUserFactory?
+ *  Q: Why should I use F45_FTY_RunAsUserFactory?
  *	A: For your tests to be stable -- that is to say, provide the same result, regardless of execution context -- 
  *		your tests must define the user which is executing any particular code you wish to test.
  *		Otherwise, SFDC make questionable assumptions and your results can vary.  
  *
- *	Q: Why didn't you use the F45_SObjectFactory to create your test user?
+ *	Q: Why didn't you use the F45_FTY_SObjectFactory to create your test user?
  *	A: Because this was a solved problem which I've felt no need or desire to refactor
  *
  *  Q: Doesn't the overhead of creating the User make every test which uses one an integration test?
@@ -20,7 +20,7 @@
  *  A: Rarely, and mostly for integration tests.
  **/
 @isTest 
-public class F45_RunAsUserFactory {
+public class F45_FTY_RunAsUserFactory {
     public static User create(String testerName, String testerProfileString, String testerRoleString){
         User originalAdmin = [ SELECT id FROM User WHERE profile.name = 'System Administrator' ORDER BY CreatedDate LIMIT 1 ];
         System.runAs ( originalAdmin ) {
