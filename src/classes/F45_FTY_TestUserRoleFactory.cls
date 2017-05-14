@@ -19,6 +19,10 @@ public class F45_FTY_TestUserRoleFactory extends F45_FTY_SObjectFactory {
 		return createList(template, quantity, insertMode)[0];
 	}
 
+	public static UserRole create(F45_FTY_RecordInsertMode insertMode){
+		return create(new UserRole(), insertMode);
+	}
+
 	class UserRoleInQuantityStrategy extends SObjectInQuantityStrategy {
 		UserRoleInQuantityStrategy(SObject template, Integer quantity) {
 			super(template, quantity, 'UserRole ', defaultByKeyMap);

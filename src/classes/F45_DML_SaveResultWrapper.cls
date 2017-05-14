@@ -6,12 +6,7 @@ public with sharing class F45_DML_SaveResultWrapper implements F45_DML_GenericRe
     public F45_DML_SaveResultWrapper(Database.SaveResult result) {
     	this.id = result.id;
     	this.wasSuccess = result.isSuccess();
-    	for (Database.Error error : result.errors) {
-    		if (errorList == null) {
-    			errorList = new List<F45_DML_DatabaseErrorWrapper>();
-    		}
-    		errorList.add(new F45_DML_DatabaseErrorWrapper(error));
-    	}
+    	this.errorList = (new F45_DML_DatabaseErrorHelper()).convert(result.errors);
     } 
     
     @testVisible() 
