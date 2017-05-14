@@ -35,7 +35,7 @@
  *		By default, it stores this value in the "Name" property, which causes an error if that property does not exist.
  *     	In order to fix this, you have two possibilites:
  *
- *      1. (Recommended) Add the sObjectType and an alternative target to the nameFieldOverrideMap for the desired strategy.
+ *      1. (Recommended) Add the sObjectType and an alternative target to the NAME_FIELD_OVERRIDE_MAP for the desired strategy.
  *
  *      2. Create your own Mock Strategy Implementation
  *      	If you create something useful, please send a pull request.  :-)  
@@ -60,9 +60,9 @@
  *      To fix the class, just uncomment the map entries.  
  *      (As this is an unmanaged package, there is little you shouldn't do that, unless your concerned about updatees...) 
  *
- *  Q: How can I safely modify the nameFieldOverrideMap so revisions won't be lost if I update this package?
+ *  Q: How can I safely modify the NAME_FIELD_OVERRIDE_MAP so revisions won't be lost if I update this package?
  *
- *  A: As the nameFieldOverrideMap is a public property, you can put values into it when you arrange your tests.
+ *  A: As the NAME_FIELD_OVERRIDE_MAP is a public property, you can put values into it when you arrange your tests.
  *
  *  Q: Does F45_FTY_SObjectFactory need coverage?  If so, why?
  *
@@ -77,8 +77,18 @@
  *	A: When I created the Factory, the tests which depended upon it were sufficent to prove its viability, as well as provide 100% coverage.
  *		If you feel they are desirable, feel free to create them and send a pull request. :-)
  **/
-//@isTest -- But SFDC does not allow this annotation on virtual classes
 public virtual class F45_FTY_SObjectFactory {
+	public static final Map<SObjectType, String> NAME_FIELD_OVERRIDE_MAP = new Map<SObjectType, String>{
+		Case.getSObjectType() => 'subject',
+		Contact.getSObjectType() => 'lastName',
+		Lead.getSObjectType() => 'lastName',
+		User.getSObjectType() => 'lastName'
+		
+		// NOTE: If you want to use this Factory with an SObject which does not contain any Text field,
+		//		 You will need to add one. 
+		// Work_Part__c.getSObjectType() => 'F45_DEBUG__c'
+	}; 
+
 	F45_FTY_SObjectFactoryDml factoryDml;
 	
 	public F45_FTY_SObjectFactory(F45_FTY_SObjectFactoryDml factoryDml){
@@ -95,21 +105,18 @@ public virtual class F45_FTY_SObjectFactory {
 		this.factoryDml.doInsert(sObjectList, insertMode); 
 		return sObjectList;
 	}
-	 
+
+	public static SObject fillIfBlank (SObject sObj, String targetField, Object fillValue) {
+		Object value = sObj.get(targetField);
+		if (String.isBlank(String.valueOf(value))) { 
+			sObj.put(targetField, fillValue); 
+		}
+		return sObj ;
+	}
+		 
 	public interface SObjectTemplateStrategyInterface {
 		List<SObject> execute(List<SObject> mockSObjectList);
 	} 
-
-	public static Map<SObjectType, String> nameFieldOverrideMap = new Map<SObjectType, String>{
-		Case.getSObjectType() => 'subject',
-		Contact.getSObjectType() => 'lastName',
-		Lead.getSObjectType() => 'lastName',
-		User.getSObjectType() => 'lastName'
-		
-		// NOTE: If you want to use this Factory with an SObject which does not contain any Text field,
-		//		 You will need to add one. 
-		// Work_Part__c.getSObjectType() => 'F45_DEBUG__c'
-	}; 
 
 	// ----------------------------------------------------------------------------------------
 	
@@ -146,9 +153,10 @@ public virtual class F45_FTY_SObjectFactory {
 			return mockSObjectList; 
 		}
 		
+		@testVisible
 		private String fillName(SObject template, Integer index) {
 				SObjectType sObjType = template.getSObjectType();
-				String overrideNameField = nameFieldOverrideMap.get(sObjType);
+				String overrideNameField = NAME_FIELD_OVERRIDE_MAP.get(sObjType);
 				String nameField = (!String.isBlank(overrideNameField)) ? overrideNameField : 'name';
 				fillIfBlank (template, nameField, this.defaultName + index);
 				return nameField;
@@ -175,7 +183,7 @@ public virtual class F45_FTY_SObjectFactory {
 		}
 		 
 		public nSObjectPerRelatedSObjectStrategy(
-			SObject template, 
+			SObject template,  
 			Integer quantity, 
 			String defaultName,
 			String relatedField,
@@ -185,9 +193,18 @@ public virtual class F45_FTY_SObjectFactory {
 		}
 		
 		public override List<SObject> execute(List<SObject> mockSObjectList) {
-			for (SObject obj : SObjectList) {
-				this.defaultByKeyMap.put(this.relatedField, obj.get('id'));
+			List<Id> idList = new List<Id>(); 
+			for (SObject sObj : SObjectList) {
+				idList.add((Id) sObj.get('id'));
+				this.defaultByKeyMap.put(this.relatedField, sObj.get('id'));
 				super.execute(mockSObjectList);
+			}
+			Integer i = 0;
+			for (SObject mockSObject : mockSObjectList) {
+				mockSObject.put(this.relatedField, (Object) idList[i++]);
+				if (i >= idList.size()) {
+					i = 0;
+				}
 			}
 			return mockSObjectList; 
 		}
@@ -226,22 +243,13 @@ public virtual class F45_FTY_SObjectFactory {
 			return mockSObjectList; 
 		}
 		
+		@testVisible
 		private String fillName(SObject template, Integer index) {
 				SObjectType sObjType = template.getSObjectType();
-				String overrideNameField = nameFieldOverrideMap.get(sObjType);
+				String overrideNameField = NAME_FIELD_OVERRIDE_MAP.get(sObjType);
 				String nameField = (!String.isBlank(overrideNameField)) ? overrideNameField : 'name';
 				fillIfBlank (template, nameField, this.defaultName + index);
 				return nameField;
 		}
-	}
-     	
-	// ----------------------------------------------------------------------------------------------
-	
-	public static SObject fillIfBlank (SObject sObj, String targetField, Object fillValue) {
-		Object value = sObj.get(targetField);
-		if (String.isBlank(String.valueOf(value))) { 
-			sObj.put(targetField, fillValue); 
-		}
-		return sObj ;
 	}
 }

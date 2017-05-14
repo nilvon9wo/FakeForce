@@ -6,16 +6,20 @@ public class F45_FTY_SObjectFactoryMockDml extends F45_FTY_SObjectFactoryDml {
 		if (insertMode == F45_FTY_RecordInsertMode.MOCK) {
 			this.mockInsert(sObjectList);
 			return mockWrapResults(sObjectList);
+		}
+		else if (insertMode == F45_FTY_RecordInsertMode.REAL) {
+			return super.doInsert(sObjectList, insertMode);
 		} 
-		
-		return super.doInsert(sObjectList, insertMode); 
+		else {
+			return null;
+		}		
 	}
 
     private void mockInsert (List<SObject> dummySObjectList) {   
         for (SObject dummySObject : dummySObjectList) {                           
             String  mockIdString   = '00000000000' + mockIdCounter++;   // We increment the mockIdCounter so each dummy SObject gets a unique identifier.
             Integer subStringStart = (mockIdString.length() > 12) ? (mockIdString.length() - 12) : 0; 
-            dummySObject.put('id', (Id) (F45_FTY_SObjectPrefixHelper.get(dummySObject.getSObjectType()) + mockIdString.subString(subStringStart))); 
+            dummySObject.put('id', (Id) (F45_FTY_SObjectPrefixHelper.get(dummySObject.getSObjectType()) + mockIdString.subString(subStringStart)));
         }  
     }
     

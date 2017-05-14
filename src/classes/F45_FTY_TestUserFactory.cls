@@ -1,24 +1,35 @@
 @isTest 
 public class F45_FTY_TestUserFactory extends F45_FTY_SObjectFactory {
 	public static final F45_CM_ProfileCache profileCache = new F45_CM_ProfileCache();
-	public static final F45_CM_UserRoleCache userRole = new F45_CM_UserRoleCache();
+	public static final F45_CM_UserRoleCache userRoleCache = new F45_CM_UserRoleCache();
 	
-	public static final String DEFAULT_USER_PROFILE = 'Standard User';
+	public static final String TESTER_NAME_SEED = 'TestRunner';
+	public static final String OTHER_USER_NAME_SEED = 'SomeOtherUser';
 	public static final String ADMNISTRATOR_PROFILE = 'System Administrator';
+
+	public static final String DEFAULT_USER_PROFILE = 'Standard User';
 	public static final String DEFAULT_USER_ROLE = 'CEO';
+	public static final String DEFAULT_EMAIL_ENCODING = 'UTF-8';
+	public static final String DEFAULT_LANGUAGE_ENCODING = 'en_US';
+	public static final String DEFAULT_LOCALE = 'en_US';
+	public static final String DEFAULT_TIME_ZONE = 'Europe/Berlin';
+
+	public static final Id ADMNISTRATOR_PROFILE_ID = profileCache.getByName(ADMNISTRATOR_PROFILE).id;
+	public static final Id DEFAULT_USER_PROFILE_ID = profileCache.getByName(DEFAULT_USER_PROFILE).id;
+	public static final Id DEFAULT_USER_ROLE_ID = userRoleCache.getByName(DEFAULT_USER_ROLE).id;
 	
 	private static final Map<String, Object> DEFAULT_VALUES_BY_FIELD_MAP = new Map<String, Object>{
-		'ProfileId' => profileCache.getByName(DEFAULT_USER_PROFILE).id,
-		'UserRoleId' => userRole.getByName(DEFAULT_USER_ROLE).id,
-        'EmailEncodingKey' => 'UTF-8',
-        'LanguageLocaleKey' => 'en_US',
-        'LocaleSidKey' => 'en_US',
-        'TimeZoneSidKey' => 'Europe/Berlin'
+		'ProfileId' => DEFAULT_USER_PROFILE_ID,
+		'UserRoleId' => DEFAULT_USER_ROLE_ID,
+        'EmailEncodingKey' => DEFAULT_EMAIL_ENCODING,
+        'LanguageLocaleKey' => DEFAULT_LANGUAGE_ENCODING,
+        'LocaleSidKey' => DEFAULT_LOCALE,
+        'TimeZoneSidKey' => DEFAULT_TIME_ZONE
 	};  
 	
     public static User createTestRunner(){
         Integer unique = (Integer) (Math.random() * 999999);
-        String testerName = 'TestRunner' + unique;
+        String testerName = TESTER_NAME_SEED + unique;
         return createTestRunner(testerName, ADMNISTRATOR_PROFILE, DEFAULT_USER_ROLE);
     }
 
@@ -28,7 +39,7 @@ public class F45_FTY_TestUserFactory extends F45_FTY_SObjectFactory {
             User testRunUser = new User(
                  lastName          = testerName,
                  ProfileId         = profileCache.getByName(testerProfileString).id,
-                 UserRoleId        = userRole.getByName(testerRoleString).id
+                 UserRoleId        = userRoleCache.getByName(testerRoleString).id
             );
             return create(testRunUser, F45_FTY_RecordInsertMode.REAL);
         }
@@ -36,7 +47,9 @@ public class F45_FTY_TestUserFactory extends F45_FTY_SObjectFactory {
     }
     
 	public static List<User> createList(User templateParam, Integer quantity, F45_FTY_RecordInsertMode insertMode){
-		String testerName = templateParam.lastName;
+		String testerName = (templateParam.lastName != null)
+			? templateParam.lastName
+			: OTHER_USER_NAME_SEED + (Integer) (Math.random() * 999999);
 
 		User template = templateParam.clone();
 		template.alias = F45_UTIL_DefaultHelper.ifNullDefault(template.alias, testerName.left(1)+testerName.right(7)); 
@@ -54,9 +67,7 @@ public class F45_FTY_TestUserFactory extends F45_FTY_SObjectFactory {
 	}
 	
 	public static User create(F45_FTY_RecordInsertMode insertMode){
-        Integer unique = (Integer) (Math.random() * 999999);
-        String lastName = 'SomeOtherUser' + unique;
-		return create(new User(lastName = lastName), insertMode);
+		return create(new User(), insertMode);
 	}
 
 	class UserInQuantityStrategy extends SObjectInQuantityStrategy {
