@@ -1,4 +1,4 @@
-public with sharing class F45_DML_UndeleteResultListWrapper implements F45_DML_GenericResultListWrapperIntf {
+public with sharing class F45_DML_UndeleteResultListWrapper implements F45_DML_ResultListWrapperIntf {
     @testVisible private List<F45_DML_UndeleteResultWrapper> resultWrapperList;
     
     public F45_DML_UndeleteResultListWrapper(List<Database.UndeleteResult> UndeleteResultList) {

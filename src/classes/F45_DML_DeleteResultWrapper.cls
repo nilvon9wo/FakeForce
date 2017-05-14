@@ -1,4 +1,4 @@
-public with sharing class F45_DML_DeleteResultWrapper implements F45_DML_GenericResultWrapperIntf {
+public with sharing class F45_DML_DeleteResultWrapper implements F45_DML_ResultWrapperIntf {
 	@testVisible private Id id;
 	@testVisible private Boolean wasSuccess;
 	@testVisible private List<F45_DML_DatabaseErrorWrapper> errorList; 

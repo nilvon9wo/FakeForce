@@ -1,7 +1,3 @@
-/**
- * This is NOT a test class.
- * Inject this class into the classes where you perform DML so you can mock it out with F45_DML_GenericDmlMock during testing.
- **/ 
 public virtual class F45_DML_GenericDml {
 	public static Boolean IS_ALL_OR_NONE = true; 
 	public static Boolean NOT_ALL_OR_NONE = false; 

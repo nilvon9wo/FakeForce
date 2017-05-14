@@ -1,4 +1,4 @@
-public with sharing class F45_DML_UpsertResultWrapper implements F45_DML_GenericResultWrapperIntf {
+public with sharing class F45_DML_UpsertResultWrapper implements F45_DML_ResultWrapperIntf {
 	@testVisible private Id id;
 	@testVisible private Boolean wasSuccess;
 	@testVisible private Boolean wasCreated;
