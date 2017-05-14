@@ -14,12 +14,13 @@ public with sharing class F45_CM_UserRoleCache {
     
     public UserRole getByName(String name){
     	if (userRoleByNameMap == null) {
-    		userRoleByNameMap = loaduserRoleByNameMap();
+    		userRoleByNameMap = buildUserRoleByNameMap();
     	}
     	return userRoleByNameMap.get(name);
     }
     
-    private Map<String, UserRole> loaduserRoleByNameMap() {
+    @testVisible
+    private Map<String, UserRole> buildUserRoleByNameMap() {
     	List<UserRole> userRoleList = this.selector.selectAll();
     	userRoleByNameMap = new Map<String, UserRole>();
     	for (UserRole UserRole : userRoleList) {

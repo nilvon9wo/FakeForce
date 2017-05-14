@@ -14,12 +14,13 @@ public with sharing class F45_CM_ProfileCache {
     
     public Profile getByName(String name){
     	if (profileByNameMap == null) {
-    		profileByNameMap = loadProfileByNameMap();
+    		profileByNameMap = buildProfileByNameMap();
     	}
     	return profileByNameMap.get(name);
     }
     
-    private Map<String, Profile> loadProfileByNameMap() {
+    @testVisible
+    private Map<String, Profile> buildProfileByNameMap() {
     	List<Profile> profileList = this.selector.selectAll(); 
     	profileByNameMap = new Map<String, Profile>();
     	for (Profile profile : profileList) {
