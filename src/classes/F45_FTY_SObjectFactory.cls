@@ -158,7 +158,7 @@ public virtual class F45_FTY_SObjectFactory {
 				SObjectType sObjType = template.getSObjectType();
 				String overrideNameField = NAME_FIELD_OVERRIDE_MAP.get(sObjType);
 				String nameField = (!String.isBlank(overrideNameField)) ? overrideNameField : 'name';
-				fillIfBlank (template, nameField, this.defaultName + index);
+				fillIfBlank (template, nameField, this.defaultName + ' ' + index);
 				return nameField;
 		}
 	}
