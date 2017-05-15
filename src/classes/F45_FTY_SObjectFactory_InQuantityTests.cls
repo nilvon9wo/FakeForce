@@ -24,7 +24,8 @@ public with sharing class F45_FTY_SObjectFactory_InQuantityTests {
     	System.assertEquals(STRATEGY_QUANTITY, resultList.size());
     	
     	User resultUser = (User) resultList[0];
-    	System.assert(resultUser.LastName.contains(F45_FTY_TestUserFactory.OTHER_USER_NAME_SEED));
+    	System.debug('########## resultUser: ' + resultUser);
+    	System.assert(resultUser.LastName.contains('User'));
     	System.assert(resultUser.Email.contains(F45_FTY_TestUserFactory.OTHER_USER_NAME_SEED));
     	System.assert(resultUser.Username.contains(F45_FTY_TestUserFactory.OTHER_USER_NAME_SEED));
     	System.assert(resultUser.CommunityNickname.contains(F45_FTY_TestUserFactory.OTHER_USER_NAME_SEED));

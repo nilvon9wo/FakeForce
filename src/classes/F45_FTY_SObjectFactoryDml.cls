@@ -10,4 +10,4 @@ public with sharing virtual class F45_FTY_SObjectFactoryDml extends F45_DML_Gene
 
 		return super.doInsert(sObjectList);
 	} 
-}
+} 

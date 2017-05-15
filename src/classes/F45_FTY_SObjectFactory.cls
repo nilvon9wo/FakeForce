@@ -106,6 +106,24 @@ public virtual class F45_FTY_SObjectFactory {
 		return sObjectList;
 	}
 
+	public static String fillName(SObject template, String defaultName, Integer index) {
+			SObjectType sObjType = template.getSObjectType();
+			String overrideNameField = NAME_FIELD_OVERRIDE_MAP.get(sObjType);
+			String nameField = (!String.isBlank(overrideNameField)) ? overrideNameField : 'name';
+			Boolean isBlankName = String.isBlank((String) template.get(nameField));
+			fillIfBlank (template, nameField, defaultName);
+			return (isBlankName)
+				? addIncrementToName(template, nameField, index)
+				: (String) template.get(nameField);
+	}
+
+	@testVisible
+	private static String addIncrementToName(SObject sObj, String nameField, Integer index) {
+			String value = (String) sObj.get(nameField) + ' ' + index;
+			sObj.put(nameField, value);
+			return value;
+	}
+	
 	public static SObject fillIfBlank (SObject sObj, String targetField, Object fillValue) {
 		Object value = sObj.get(targetField);
 		if (String.isBlank(String.valueOf(value))) { 
@@ -144,22 +162,13 @@ public virtual class F45_FTY_SObjectFactory {
 		  
 		public virtual List<SObject> execute(List<SObject> mockSObjectList) {
 			for (Integer i = 1; i <= this.quantity; i++) {
-				this.fillName(template, i);
+ 				fillName(template, this.defaultName, i); 
 				for (String key : this.defaultByKeyMap.keySet()) {
 					fillIfBlank (template, key, this.defaultByKeyMap.get(key));
-				}
+				} 
 				mockSObjectList.add(template.clone());
 			}
 			return mockSObjectList; 
-		}
-		
-		@testVisible
-		private String fillName(SObject template, Integer index) {
-				SObjectType sObjType = template.getSObjectType();
-				String overrideNameField = NAME_FIELD_OVERRIDE_MAP.get(sObjType);
-				String nameField = (!String.isBlank(overrideNameField)) ? overrideNameField : 'name';
-				fillIfBlank (template, nameField, this.defaultName + ' ' + index);
-				return nameField;
 		}
 	}
 
@@ -234,22 +243,13 @@ public virtual class F45_FTY_SObjectFactory {
 		public virtual List<SObject> execute(List<SObject> mockSObjectList) {
 			Integer i = 0;
 			for (SObject template :  templateList) {
-				this.fillName(template, i++);
+				fillName(template, this.defaultName, i++);
 				for (String key : this.defaultByKeyMap.keySet()) {
 					fillIfBlank (template, key, this.defaultByKeyMap.get(key));
 				}
 				mockSObjectList.add(template.clone());
 			}
 			return mockSObjectList; 
-		}
-		
-		@testVisible
-		private String fillName(SObject template, Integer index) {
-				SObjectType sObjType = template.getSObjectType();
-				String overrideNameField = NAME_FIELD_OVERRIDE_MAP.get(sObjType);
-				String nameField = (!String.isBlank(overrideNameField)) ? overrideNameField : 'name';
-				fillIfBlank (template, nameField, this.defaultName + index);
-				return nameField;
 		}
 	}
 }
